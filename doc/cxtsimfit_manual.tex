@@ -1,0 +1,261 @@
+% ----------------------------------------------------------------
+% AMS-LaTeX Paper ************************************************
+% **** -----------------------------------------------------------
+\documentclass[a4paper,fleqn,11pt]{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+% ----------------------------------------------------------------
+\vfuzz2pt % Don't report over-full v-boxes if over-edge is small
+\hfuzz2pt % Don't report over-full h-boxes if over-edge is small
+% THEOREMS -------------------------------------------------------
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\numberwithin{equation}{section}
+% MATH -----------------------------------------------------------
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\Real}{\mathbb R}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\To}{\longrightarrow}
+\newcommand{\BX}{\mathbf{B}(X)}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\eqn}[1]{(\ref{#1})}
+% ----------------------------------------------------------------
+
+\newenvironment{tight_enumerate}
+{\begin{enumerate}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}}
+{\end{enumerate}}
+
+\newenvironment{tight_itemize}
+{\begin{itemize}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}}
+{\end{itemize}}
+
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\scriptsize{\textsc{CXT SIM-FIT Manual}}}
+\rhead{\scriptsize{\textsc{Dr. Andreas Nicolai}}}
+%\renewcommand\headrulewidth{0pt} % Removes funny header line
+\rfoot{\textsc{\scriptsize{Page \thepage\ of \pageref{LastPage}}}}
+\parskip 0.5em
+\parindent 0em
+
+\begin{document}
+
+\title{\textsc{CXT SIM-FIT Manual}}%
+\author{\textsc{Dr. Andreas Nicolai}\footnote{E-Mail: \emph{andreas.nicolai@tu-dresden.de}, Institute of Building Climatology, Faculty of Architecture, TU Dresden, Zellescher Weg 17, 01062 Dresden}}
+
+\date{\small 02/17/2009}%
+\maketitle
+% ----------------------------------------------------------------
+\begin{abstract}
+\noindent This document is a user guide for the program CXT SIM-FIT. It contains the equations implemented in the program and describes the parameters that can be fitted.
+\end{abstract}
+% ----------------------------------------------------------------
+\section{Fundamentals and Program Usage}
+The program CXT SIM-FIT can be used for inverse-modeling and parametrization of convection-diffusion-reaction equations. Unlike the original CXTFit program, it solves the transport equations numerically. This allows consideration of additional effects:
+\begin{tight_itemize}
+  \item non-constant inlet concentrations (data file)
+  \item non-constant parameters (e.g. sorption curves)
+  \item kinetic transfer terms between mobile and immobile phases
+\end{tight_itemize}
+In addition to the extended calculation capabilities, it allows monitoring and inspecting the transient profiles that are calculated at various time points during the integration.
+
+\subsection{Numerical Solution}
+The partial differential equation is transformed into a system of ordinary differential equations by using the control volume method. A central difference quotient approximation is used for the diffusion term Eqn. \eqn{eqn:diff_disc}, and a first-order upwind discretization of the convection term Eqn. \eqn{eqn:conv_disc}.
+\begin{align}
+\frac{\partial c}{\partial x} &= \frac{c_{i} - c_{i+1}}{\Delta x}  \label{eqn:diff_disc} \\
+v\,c &= v\, c_i\label{eqn:conv_disc}
+\end{align}
+The time integration is done using a variable-order variable-step multi-step implementation of a BDF formulation, implemented in the \mbox{SUNDIALS}- \mbox{CVODE}\footnote{SUNDIALS, SUite of Nonlinear DIfferential ALgebraic equation Solvers, \texttt{www.llnl.gov/CASC/sundials}} package. For the minimization a Levenberg-Marquardt algorithm is used, implemented in the LevMar library\footnote{levmar: Levenberg-Marquardt nonlinear least squares algorithms in C/C++, \texttt{www.ics.forth.gr/~lourakis/levmar}}.
+
+\subsection{Program Usage}
+First load a break-through data file, with the following format:
+\begin{quote}
+\footnotesize
+\begin{verbatim}
+# lines beginning with a '#' character are comments
+# standard two-column layout is used, whitespace characters
+# (space or tab characters) are used as separators between
+# columns
+# first column is the time point in [h]
+# second column is the measured outlet concentration in [kg/m3s]
+0  0
+1  0
+2  0.1
+3  0.8
+4  0.9
+5  0.95
+6  0.99
+10  1
+\end{verbatim}
+\end{quote}
+Then either specify the inlet concentration, or load a data file (same format as outlet data) for the inlet concentrations. Note that you can substitute any suitable concentration measure for the default $kg/m^3$. However, make sure that the outlet and inlet data files use the same unit!
+
+Now estimate the parameters until you have a good initial guess!
+
+Hint: While entering values you can hit Enter to run the simulation and update the current curve.
+
+To optimize the fit, select/check one or more parameters and run the optimizer. It is useful to fit few parameters at a time until close to the best-fit.
+
+\section{Model Description}
+For the current version, two models are implemented:
+\begin{tight_enumerate}
+  \item equilibrium sorption model (one balance equation)
+  \item mobile/immobile phases coupled with exchange term (two balance equations)
+\end{tight_enumerate}
+The implementation is straight-forward and can be easily extended. See Section \ref{sec:development} for details.
+
+\subsection{Model \#1: Equilibrium Sorption}
+Instantaneous equilibrium between the mobile phase and adsorptive surfaces is assumed. Equation \eqn{eqn:model_1} is implemented. In addition to the parameters in the equation, the user interface allows input of the cross section, flow domain length, porosity and upstream volumetric flow rate. These input quantities are used to calculate, for instance, the convection velocity $v$ inside the porous medium.
+\begin{align}\label{eqn:model_1}
+R_c \frac{\partial c}{\partial t} = -\frac{\partial }{\partial x}\left[ - D\frac{\partial c}{\partial x} + v\,c \right] - \mu_c\,c + \gamma_c
+\end{align}
+with
+\begin{center}
+ \footnotesize
+\begin{tabular}{ccl}
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+  \textbf{Symbol} & \textbf{Dimension} & \textbf{Description} \\[1mm]
+  $c$ & $kg/m^3$ & Mass density/volume based concentration \\
+  $t$ & $s$ & Time \\
+  $x$ & $m$ & Spatial location \\
+  $R_c$ & $kg/kg$ & Retention coefficient \\
+  $D$ & $m^2/s$ & Diffusion coefficient \\
+  $v$ & $m/s$ & Convection velocity \\
+  $\mu_c$ & $1/s$ & Linear reaction coefficient (1. Order reduction rate) \\
+  $\gamma_c$ & $kg/m^3s$ & Mass production term (0. Order source/sink) \\
+\end{tabular}
+\end{center}
+Parameters and notation are used as in [Parker \& van Genuchten, 1984].
+
+\subsection{Model \#2: Mobile/Immobile Phases}
+The component is transported in one phase as before in model \#1. An concentration based exchange term controls transport to and from the immobile phase. There, instantaneous equilibrium between the mobile and adsorbed components is assumed. Equations \eqn{eqn:model_2a} and \eqn{eqn:model_2b} are implemented. The first equation is identical to the transport equation in model \#1, except for the additional mass exchange term.
+\begin{align}
+R_c \frac{\partial c}{\partial t} &= -\frac{\partial }{\partial x}\left[ - D\frac{\partial c}{\partial x} + v\,c \right] - \beta\left(c - s\right) - \mu_c\,c + \gamma_c \label{eqn:model_2a} \\
+R_s \frac{\partial s}{\partial t} &= \beta\left(c - s\right) - \mu_s\,s + \gamma_s \label{eqn:model_2b}
+\end{align}
+with these symbols defined in addition to the ones already introduced in model \#1.
+\begin{center}
+\footnotesize
+\begin{tabular}{ccl}
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+  \textbf{Symbol} & \textbf{Dimension} & \textbf{Description} \\[1mm]
+  $s$ & $kg/m^3$ & Mass density/volume based concentration in immobile phase\\
+  $R_s$ & $kg/kg$ & Retention coefficient for the immobile phase\\
+  $\beta$ & $1/s$ & Mass transfer coefficient\\
+  $\mu_s$ & $1/s$ & Linear reaction coefficient in immobile phase\\
+  $\gamma_s$ & $kg/m^3s$ & Mass production term in immobile phase
+\end{tabular}
+\end{center}
+For a very large $\beta$ and $R_c=0$, or $\beta=0$ model \#2 will give the same results as model \#1.
+
+\section{Development}\label{sec:development}
+Development information are currently compiled and kept up-to-date on the webpage: \texttt{www.bauklimatik-dresden.de/cxtsimfit}
+
+\section{Licenses}
+The CXT SIM-FIT program is licensed under the GNU General Public License (GPL).
+
+\begin{quote}
+\footnotesize
+\begin{verbatim}
+Copyright (c) 2009 Andreas Nicolai and Jingjing Pei
+Developed at the Institute of Building Climatology,
+Dresden University of Technology, Germany.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+\end{verbatim}
+\end{quote}
+
+The CVODE library used in the program comes with the following license.
+\begin{quote}
+\footnotesize
+\begin{verbatim}
+Copyright (c) 2002, The Regents of the University of California.
+Produced at the Lawrence Livermore National Laboratory.
+Written by S.D. Cohen, A.C. Hindmarsh, R. Serban,
+           D. Shumaker, and A.G. Taylor.
+UCRL-CODE-155951    (CVODE)
+UCRL-CODE-155950    (CVODES)
+UCRL-CODE-155952    (IDA)
+UCRL-CODE-155953    (KINSOL)
+All rights reserved.
+
+This file is part of SUNDIALS.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+1. Redistributions of source code must retain the above copyright
+notice, this list of conditions and the disclaimer below.
+
+2. Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the disclaimer (as noted below)
+in the documentation and/or other materials provided with the
+distribution.
+
+3. Neither the name of the UC/LLNL nor the names of its contributors
+may be used to endorse or promote products derived from this software
+without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+REGENTS OF THE UNIVERSITY OF CALIFORNIA, THE U.S. DEPARTMENT OF ENERGY
+OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+\end{verbatim}
+\end{quote}
+
+The Levenberg-Marquardt library used in the program comes with the following license.
+\begin{quote}
+\footnotesize
+\begin{verbatim}
+Solution of linear systems involved in the Levenberg - Marquardt
+minimization algorithm
+Copyright (C) 2004  Manolis Lourakis (lourakis at ics forth gr)
+Institute of Computer Science, Foundation for Research & Technology - Hellas
+Heraklion, Crete, Greece.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+\end{verbatim}
+\end{quote}
+
+% ----------------------------------------------------------------
+%\bibliographystyle{amsplain}
+%\bibliography{}
+\end{document}
+% ----------------------------------------------------------------
