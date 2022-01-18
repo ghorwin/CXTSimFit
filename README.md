@@ -1,6 +1,6 @@
 # CXTSimFit
 
-_CXTSimFit_ is a small tool to determine model parameters through inverse modeling of Tracer experiments (or filter tests). It fits the parameters of a typical diffusion and convection equation (with sorption and source term, and optional dual porosity) to measured inlet/outlet data. As opposed to the original CXTFit (see reference below) it can handle much more complex equations and handle non-constant inlet conditions.
+_CXTSimFit_ is a small tool to determine model parameters through _Inverse Modeling_ of Tracer experiments or break-through filter tests. It fits the parameters of a typical diffusion and convection equation to measured inlet/outlet data (optionally with sorption and source term, and/or dual porosity). As opposed to the original CXTFit (see reference below) it can handle much more complex equations and handle non-constant inlet conditions.
 
 Paper of the original CXTFIT:
 
@@ -16,11 +16,13 @@ Also, a dual-porosity model is implemented, to better capture sorption character
 
 ## Documentation
 
-The mathematical theory is written down in a small paper: [CXTSimFit Manual](doc/cxtsimfit_manual.pdf)
+The mathematical theory is written down in a small paper:
+
+A. Nicolai, _CXT SIM-FIT Manual_, 2009, Technical Report, [cxtsimfit_manual.pdf](doc/cxtsimfit_manual.pdf)
 
 ## How does it work
 
-The software computes the solution of the convection-diffusion-equation (see model description in the manual). When you run the software, you can enter the model parameters, run the simulation and plot the calculated results with the "Add curve" button:
+The software computes the solution of the convection-diffusion-equation (see model description in the manual). You can enter the model parameters, run the simulation and plot the calculated results with the "Add curve" button:
 
 ![Manually added curve](doc/CXTSimFit_single_curve.png)
 
