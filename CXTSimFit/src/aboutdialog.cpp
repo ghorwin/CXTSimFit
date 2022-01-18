@@ -1,4 +1,6 @@
 #include <QtGui>
+#include <QMessageBox>
+
 #include "aboutdialog.h"
 
 AboutDialog::AboutDialog(QWidget *parent)

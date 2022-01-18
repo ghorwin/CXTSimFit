@@ -10,6 +10,8 @@ TEMPLATE = lib
 # it contains all functions defined for casual libraries
 include( ../../../IBK/projects/Qt/IBK.pri )
 
+# use double-precision routines
+#DEFINES += LM_DBL_PREC
 
 # finally we setup our custom library specfic things
 # like version number etc., we also may reset all
@@ -25,5 +27,16 @@ INCLUDEPATH +=	\
 
 SOURCES += \
 	../../src/Axb.c \
-	../../src/levm.c \
+	../../src/expfit.c \
+	../../src/lm.c \
+	../../src/lmbc.c \
+	../../src/lmblec.c \
+	../../src/lmbleic.c \
+	../../src/lmlec.c \
 	../../src/misc.c
+
+HEADERS += \
+	../../src/compiler.h \
+	../../src/levmar.h \
+	../../src/lm.h \
+	../../src/misc.h

@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "levm.h"
+#include <levmar.h>
 
 class SolverInput;
 
@@ -24,13 +24,13 @@ public:
 
 	/// Constructor, takes all properties required for the simulation later
 	/// as arguments.
-	/// @param input 
-	LevMarOptimizer(const SolverInput & input, 
-		const std::vector<double> & t, 
+	/// @param input
+	LevMarOptimizer(const SolverInput & input,
+		const std::vector<double> & t,
 		const std::vector<double> & c_out);
 
 	/// The main optimization function.
-	/// Call this function to optimize the parameters passed in the parameters vector. 
+	/// Call this function to optimize the parameters passed in the parameters vector.
 	/// Once the function returns the parameters vector contains the optimized parameters,
 	/// or the original parameters, if the optimization failed.
 	void optimize(std::vector<double> & parameters);

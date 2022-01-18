@@ -10,36 +10,29 @@ include( ../../../IBK/projects/Qt/IBK.pri )
 
 QT += printsupport widgets svg xml
 
+FORMS += \
+	../../src/qnancharteditdialog.ui \
+	../../src/qnanprintchartdialog.ui \
+	../../src/qnanserieseditdialog.ui
+
 HEADERS += \
 	../../src/qnanabstractchartseries.h \
 	../../src/qnanchartaxis.h \
 	../../src/QNANChartWidget \
 	../../src/qnanchartwidget.h \
-	../../src/qnandefaultchartseries.h
+	../../src/qnandefaultchartseries.h \
+	../../src/qnancharteditdialog.h \
+	../../src/qnanprintchartdialog.h \
+	../../src/qnanserieseditdialog.h \
+	../../src/qnanseriestabledelegate.h
 
 SOURCES += \
 	../../src/qnanabstractchartseries.cpp \
 	../../src/qnanchartaxis.cpp \
 	../../src/qnanchartwidget.cpp \
-	../../src/qnandefaultchartseries.cpp
+	../../src/qnandefaultchartseries.cpp \
+	../../src/qnancharteditdialog.cpp \
+	../../src/qnanprintchartdialog.cpp \
+	../../src/qnanserieseditdialog.cpp \
+	../../src/qnanseriestabledelegate.cpp
 
-
-contains( OPTIONS, plugin ) {
-	FORMS += \
-		../../src/qnancharteditdialog.ui \
-		../../src/qnanprintchartdialog.ui \
-		../../src/qnanserieseditdialog.ui
-
-	HEADERS += \
-		../../src/qnancharteditdialog.h \
-		../../src/qnanprintchartdialog.h \
-		../../src/qnanserieseditdialog.h \
-		../../src/qnanseriestabledelegate.h
-
-	SOURCES += \
-		../../src/qnancharteditdialog.cpp \
-		../../src/qnanprintchartdialog.cpp \
-		../../src/qnanserieseditdialog.cpp \
-		../../src/qnanseriestabledelegate.cpp
-
-}

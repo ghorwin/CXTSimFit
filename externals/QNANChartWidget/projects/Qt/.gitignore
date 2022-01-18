@@ -2,3 +2,5 @@
 /moc/
 /.qmake.stash
 /Makefile
+/ui/
+*.QNANChartWidget

@@ -4,13 +4,13 @@
 
 #include "curvedata.h"
 
-CurveData::CurveData() 
-	: series(NULL), curveID(-1)
+CurveData::CurveData()
+	: series(nullptr), curveID(-1)
 {
 }
 
 void CurveData::init(QNANChartWidget * w) {
-	Q_ASSERT(w != 0);
+	Q_ASSERT(w != nullptr);
 	series = new QNANDefaultChartSeries(w);
 	curveID = w->addSeries(series);
 }

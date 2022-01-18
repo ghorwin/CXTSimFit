@@ -19,6 +19,7 @@ unix {
 
 LIBS += -L../../../lib$${DIR_PREFIX} \
 	-lIBK \
+	-lQNANChartWidget \
 	-llevmar \
 	-lsundials
 

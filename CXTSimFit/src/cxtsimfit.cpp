@@ -1,18 +1,20 @@
 #include <QtGui>
-#include <iostream>
-using namespace std;
+#include <QMessageBox>
+#include <QFileDialog>
 
-#include "cxtsimfit.h"
-#include "aboutdialog.h"
-#include "inspectprofiledialog.h"
+#include <iostream>
 
 #include <qnandefaultchartseries.h>
 #include <qnanchartaxis.h>
 
+#include <levmaroptimizer.h>
+
+#include "cxtsimfit.h"
+#include "aboutdialog.h"
+#include "inspectprofiledialog.h"
 #include "solverresults.h"
 #include "solver.h"
 
-#include "levmaroptimizer.h"
 
 const char * PROGRAM_NAME = "CXT Sim-Fit";
 const char * PROGRAM_VERSION = "1.0";
@@ -23,10 +25,6 @@ CXTSimFit::CXTSimFit(QWidget *parent)
 	: QDialog(parent, Qt::WindowMinMaxButtonsHint | Qt::Dialog)
 {
 	ui.setupUi(this);
-
-#ifdef Q_WS_WIN
-	ui.pushButtonConfigQt->setVisible(false);
-#endif
 
 	setWindowTitle(QString("%1 %2").arg(PROGRAM_NAME).arg(PROGRAM_VERSION));
 
@@ -127,9 +125,9 @@ void CXTSimFit::solverRunCompleted(bool add_series, const SolverResults & res) {
 	}
 	// use the last series
 	QList<double> x,y;
-	for (int i=0; i<res.data.m_x.size(); ++i) {
-		x.append(res.data.m_x[i]);
-		y.append(res.data.m_y[i]);
+	for (int i=0; i<res.data.x().size(); ++i) {
+		x.append(res.data.x()[i]);
+		y.append(res.data.y()[i]);
 	}
 	c->series->setData(x,y);
 	ui.chart->updateChart();
@@ -166,15 +164,13 @@ void CXTSimFit::loadDataFiles() {
 	if (!x.isEmpty()) {
 		outletCurve.series->setData(x,y);
 		outletCurveSpline.clear();
-		for (int i=0; i<x.count(); ++i) {
-			outletCurveSpline.m_x.push_back(x[i]);
-			outletCurveSpline.m_y.push_back(y[i]);
-			try {
-				outletCurveSpline.makeSpline();
-			}
-			catch (...) {
-				outletCurveSpline.clear();
-			}
+		std::vector<double> xvals(x.begin(), x.end());
+		std::vector<double> yvals(y.begin(), y.end());
+		try {
+			outletCurveSpline.setValues(xvals,yvals);
+		}
+		catch (...) {
+			outletCurveSpline.clear();
 		}
 	}
 	f.close();
@@ -202,16 +198,15 @@ void CXTSimFit::loadDataFiles() {
 	if (!x.isEmpty()) {
 		inletCurve.series->setData(x,y);
 
-		for (int i=0; i<x.count(); ++i) {
-			inletCurveSpline.m_x.push_back(x[i]);
-			inletCurveSpline.m_y.push_back(y[i]);
-			try {
-				inletCurveSpline.makeSpline();
-			}
-			catch (...) {
-				inletCurveSpline.clear();
-			}
+		std::vector<double> xvals(x.begin(), x.end());
+		std::vector<double> yvals(y.begin(), y.end());
+		try {
+			inletCurveSpline.setValues(xvals,yvals);
 		}
+		catch (...) {
+			inletCurveSpline.clear();
+		}
+
 //		ui.lineEditInletC->setText(QString("%1").arg(meanInletC));
 		ui.checkBoxInletC->setChecked(false);
 //		ui.lineEditInletC->setEnabled(false);
@@ -376,7 +371,8 @@ bool CXTSimFit::getInput(SolverInput & input, bool silent) {
 }
 
 void CXTSimFit::calculatePartitionCoefficient() {
-/*	SolverInput input;
+#if 0
+	SolverInput input;
 	if (!getInput(input, true)) return;
 
 	// if we have inlet and outlet curve spline, calculate partition coefficient
@@ -386,7 +382,7 @@ void CXTSimFit::calculatePartitionCoefficient() {
 	}
 	//input.calculatePartitionCoefficient();
 /*	double t = 0;
-		double max_t = std::min(inletCurveSpline.m_x.back(), outletCurveSpline.m_x.back());
+		double max_t = std::min(inletCurveSpline.x().back(), outletCurveSpline.x().back());
 		// integrate the difference
 		int N = 10000;
 		double dt = max_t/N;
@@ -410,6 +406,7 @@ void CXTSimFit::calculatePartitionCoefficient() {
 		cout << "Partition coefficient K = " << K << endl;
 	}
 */
+#endif
 }
 
 void CXTSimFit::updateCurve(bool add_series) {
@@ -442,8 +439,7 @@ void CXTSimFit::updateCurve(bool add_series) {
 	res.ccProfiles = solv.ccProfile();
 	res.scProfiles = solv.scProfile();
 	res.tProfiles = solv.tProfile();
-	res.data.m_x = solv.m_outletT;
-	res.data.m_y = solv.m_outletC;
+	res.data.setValues(solv.m_outletT, solv.m_outletC); // should never throw, or?
 	res.calculateRSquare(outletCurveSpline);
 	solverRunCompleted(add_series, res);
 }
@@ -575,7 +571,7 @@ void CXTSimFit::on_pushButtonOptimize_clicked() {
 	}
 #else // USE_LEVMAR
 
-	LevMarOptimizer f(input, outletCurveSpline.m_x, outletCurveSpline.m_y);
+	LevMarOptimizer f(input, outletCurveSpline.x(), outletCurveSpline.y());
 	f.optimizablePars = optimizableParams;
 	try {
 		f.optimize(par);

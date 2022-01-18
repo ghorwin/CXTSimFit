@@ -1,7 +1,6 @@
 #include <iostream>
 #include <iomanip>
 #include <stdexcept>
-using namespace std;
 
 #include <levmaroptimizer.h>
 
@@ -17,16 +16,17 @@ void solver_fit(double *p, double *x, int m, int n, void *data) {
 	reinterpret_cast<LevMarOptimizer*>(data)->calculate(p, x);
 }
 
+
 LevMarOptimizer::LevMarOptimizer(const SolverInput & input,
 								 const std::vector<double> & t,
 								 const std::vector<double> & c_out)
-	: m_input(&input), m_c(c_out), max_iters(1000), m_t(t)
+	: m_input(&input), max_iters(1000), m_c(c_out), m_t(t)
 {
 }
 
 
 void LevMarOptimizer::optimize(std::vector<double> & parameters) {
-	FUNCID(LevMarOptimizer::optimize);
+//	FUNCID(LevMarOptimizer::optimize);
 	m_p = parameters;
 
 	// set options
@@ -56,21 +56,21 @@ void LevMarOptimizer::optimize(std::vector<double> & parameters) {
 		throw std::runtime_error("Levenberg-Marquardt returned with an error. Optimization failed.");
 	}
 	else {
-		cout.setf( ios_base::floatfield );
-		cout << "Levenberg-Marquardt returned after " << ret << " iterations." << endl;
-		cout << "    " << info[7] << " function evaluations (solver runs)" << endl;
-		cout << "    " << info[8] << " Jacobian evaluations" << endl;
-		cout << "Reason for terminating:";
+		std::cout.setf( std::ios_base::floatfield );
+		std::cout << "Levenberg-Marquardt returned after " << ret << " iterations." << std::endl;
+		std::cout << "    " << info[7] << " function evaluations (solver runs)" << std::endl;
+		std::cout << "    " << info[8] << " Jacobian evaluations" << std::endl;
+		std::cout << "Reason for terminating:";
 		switch ((int)(info[6])) {
-			case 1 : cout << "   Stopped by small gradient J^T e"; break;
-			case 2 : cout << "   Stopped by small Dp"; break;
-			case 3 : cout << "   Stopped by itmax"; break;
-			case 4 : cout << "   Singular matrix. Restart from current p with increased mu ";break;
-			case 5 : cout << "   No further error reduction is possible. Restart with increased mu"; break;
-			case 6 : cout << "   Stopped by small ||e||_2"; break;
-			case 7 : cout << "   Stopped by invalid (i.e. NaN or Inf) 'func' values. This is a user error."; break;
+			case 1 : std::cout << "   Stopped by small gradient J^T e"; break;
+			case 2 : std::cout << "   Stopped by small Dp"; break;
+			case 3 : std::cout << "   Stopped by itmax"; break;
+			case 4 : std::cout << "   Singular matrix. Restart from current p with increased mu ";break;
+			case 5 : std::cout << "   No further error reduction is possible. Restart with increased mu"; break;
+			case 6 : std::cout << "   Stopped by small ||e||_2"; break;
+			case 7 : std::cout << "   Stopped by invalid (i.e. NaN or Inf) 'func' values. This is a user error."; break;
 		}
-		cout << endl;
+		std::cout << std::endl;
 
 		// store the optimized parameters
 		parameters = m_p;
@@ -83,7 +83,7 @@ void LevMarOptimizer::calculate(double * p, double * c) {
 	SolverInput input = *m_input;
 
 	double penalty = 0;
-	cout << scientific << setprecision(14);
+	std::cout << std::scientific << std::setprecision(14);
 	for (size_t i=0; i<optimizablePars.size(); ++i) {
 		switch (optimizablePars[i]) {
 			case LevMarOptimizer::PAR_p :
@@ -136,7 +136,7 @@ void LevMarOptimizer::calculate(double * p, double * c) {
 		solv.init(input);
 	}
 	catch (std::exception& ex) {
-		cout << "Error initializing the solver: "<< ex.what() << endl;
+		std::cout << "Error initializing the solver: "<< ex.what() << std::endl;
 		throw std::runtime_error("Can't continiue minimization!");
 	}
 
@@ -145,7 +145,7 @@ void LevMarOptimizer::calculate(double * p, double * c) {
 		std::cout << std::endl;
 	}
 	catch (std::exception& ex) {
-		cout << "Error running the solver: "<< ex.what() << endl;
+		std::cout << "Error running the solver: "<< ex.what() << std::endl;
 		throw std::runtime_error("Can't continue minimization!");
 	}
 
