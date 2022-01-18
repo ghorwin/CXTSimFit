@@ -1,60 +1,61 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>CXTSimFit</class>
- <widget class="QDialog" name="CXTSimFit" >
-  <property name="geometry" >
+ <widget class="QDialog" name="CXTSimFit">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>835</width>
-    <height>520</height>
+    <height>569</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>CXT-SimFit</string>
   </property>
-  <property name="windowIcon" >
-   <iconset resource="cxtsimfit.qrc" >
+  <property name="windowIcon">
+   <iconset resource="../resources/CXTSimFit.qrc">
     <normaloff>:/icons/icon_32.png</normaloff>:/icons/icon_32.png</iconset>
   </property>
-  <layout class="QGridLayout" name="gridLayout_4" >
-   <item row="0" column="0" >
-    <widget class="QTabWidget" name="tabWidget" >
-     <property name="maximumSize" >
+  <layout class="QGridLayout" name="gridLayout_4">
+   <item row="0" column="0">
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="maximumSize">
       <size>
        <width>350</width>
        <height>16777215</height>
       </size>
      </property>
-     <property name="tabPosition" >
+     <property name="tabPosition">
       <enum>QTabWidget::West</enum>
      </property>
-     <property name="currentIndex" >
+     <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWidget" name="tab" >
-      <attribute name="title" >
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
        <string>Physical &amp;&amp; Model Parameters</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout" >
+      <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_3" >
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <widget class="QLabel" name="label_2" >
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Preferred" hsizetype="Minimum" >
+          <widget class="QLabel" name="label_2">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>Model type:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBoxModel" >
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Fixed" hsizetype="MinimumExpanding" >
+          <widget class="QComboBox" name="comboBoxModel">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -64,14 +65,14 @@
         </layout>
        </item>
        <item>
-        <spacer name="verticalSpacer_2" >
-         <property name="orientation" >
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Fixed</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>5</height>
@@ -80,18 +81,18 @@
         </spacer>
        </item>
        <item>
-        <layout class="QGridLayout" name="gridLayout" >
-         <property name="verticalSpacing" >
+        <layout class="QGridLayout" name="gridLayout">
+         <property name="verticalSpacing">
           <number>4</number>
          </property>
-         <item row="0" column="0" colspan="2" >
-          <widget class="QLabel" name="label_6" >
-           <property name="palette" >
+         <item row="0" column="0" colspan="2">
+          <widget class="QLabel" name="label_6">
+           <property name="palette">
             <palette>
              <active>
-              <colorrole role="WindowText" >
-               <brush brushstyle="SolidPattern" >
-                <color alpha="255" >
+              <colorrole role="WindowText">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
                  <red>0</red>
                  <green>73</green>
                  <blue>141</blue>
@@ -100,9 +101,9 @@
               </colorrole>
              </active>
              <inactive>
-              <colorrole role="WindowText" >
-               <brush brushstyle="SolidPattern" >
-                <color alpha="255" >
+              <colorrole role="WindowText">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
                  <red>0</red>
                  <green>73</green>
                  <blue>141</blue>
@@ -111,9 +112,9 @@
               </colorrole>
              </inactive>
              <disabled>
-              <colorrole role="WindowText" >
-               <brush brushstyle="SolidPattern" >
-                <color alpha="255" >
+              <colorrole role="WindowText">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
                  <red>118</red>
                  <green>116</green>
                  <blue>108</blue>
@@ -123,94 +124,94 @@
              </disabled>
             </palette>
            </property>
-           <property name="font" >
+           <property name="font">
             <font>
              <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>Physical Parameters:</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="0" >
-          <widget class="QLabel" name="label_10" >
-           <property name="sizePolicy" >
-            <sizepolicy vsizetype="Preferred" hsizetype="Expanding" >
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_10">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>Cross section [m2]:</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="1" >
-          <widget class="QLineEdit" name="lineEditA" >
-           <property name="alignment" >
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="lineEditA">
+           <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
-         <item row="2" column="0" >
-          <widget class="QLabel" name="label_11" >
-           <property name="text" >
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_11">
+           <property name="text">
             <string>Domain length [m]:</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="1" >
-          <widget class="QLineEdit" name="lineEditL" >
-           <property name="alignment" >
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="lineEditL">
+           <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
-         <item row="3" column="0" >
-          <widget class="QLabel" name="label_8" >
-           <property name="text" >
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_8">
+           <property name="text">
             <string>Upstream flow rate [m3/s]:</string>
            </property>
           </widget>
          </item>
-         <item row="3" column="1" >
-          <widget class="QLineEdit" name="lineEditq" >
-           <property name="alignment" >
+         <item row="3" column="1">
+          <widget class="QLineEdit" name="lineEditq">
+           <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
-         <item row="4" column="0" >
-          <widget class="QCheckBox" name="checkboxp" >
-           <property name="text" >
+         <item row="4" column="0">
+          <widget class="QCheckBox" name="checkboxp">
+           <property name="text">
             <string>Bed Porosity [m3/m3]:</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="1" >
-          <widget class="QLineEdit" name="lineEditp" >
-           <property name="alignment" >
+         <item row="4" column="1">
+          <widget class="QLineEdit" name="lineEditp">
+           <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
-         <item row="5" column="0" >
-          <widget class="QLabel" name="label_9" >
-           <property name="text" >
+         <item row="5" column="0">
+          <widget class="QLabel" name="label_9">
+           <property name="text">
             <string>Convection velocity [m/s]:</string>
            </property>
           </widget>
          </item>
-         <item row="5" column="1" >
-          <widget class="QLineEdit" name="lineEditv" >
-           <property name="palette" >
+         <item row="5" column="1">
+          <widget class="QLineEdit" name="lineEditv">
+           <property name="palette">
             <palette>
              <active>
-              <colorrole role="Base" >
-               <brush brushstyle="SolidPattern" >
-                <color alpha="255" >
+              <colorrole role="Base">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
                  <red>255</red>
                  <green>232</green>
                  <blue>191</blue>
@@ -219,9 +220,9 @@
               </colorrole>
              </active>
              <inactive>
-              <colorrole role="Base" >
-               <brush brushstyle="SolidPattern" >
-                <color alpha="255" >
+              <colorrole role="Base">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
                  <red>255</red>
                  <green>232</green>
                  <blue>191</blue>
@@ -230,9 +231,9 @@
               </colorrole>
              </inactive>
              <disabled>
-              <colorrole role="Base" >
-               <brush brushstyle="SolidPattern" >
-                <color alpha="255" >
+              <colorrole role="Base">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
                  <red>236</red>
                  <green>233</green>
                  <blue>216</blue>
@@ -242,92 +243,92 @@
              </disabled>
             </palette>
            </property>
-           <property name="alignment" >
+           <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
-           <property name="readOnly" >
+           <property name="readOnly">
             <bool>true</bool>
            </property>
           </widget>
          </item>
-         <item row="7" column="0" >
-          <widget class="QCheckBox" name="checkboxD" >
-           <property name="text" >
+         <item row="7" column="0">
+          <widget class="QCheckBox" name="checkboxD">
+           <property name="text">
             <string>Diffusion coefficient [m2/s]:</string>
            </property>
           </widget>
          </item>
-         <item row="7" column="1" >
-          <widget class="QLineEdit" name="lineEditD" >
-           <property name="alignment" >
+         <item row="7" column="1">
+          <widget class="QLineEdit" name="lineEditD">
+           <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
-         <item row="8" column="0" >
-          <widget class="QCheckBox" name="checkboxR" >
-           <property name="text" >
+         <item row="8" column="0">
+          <widget class="QCheckBox" name="checkboxR">
+           <property name="text">
             <string>Retention parameter [kg/kg]:</string>
            </property>
           </widget>
          </item>
-         <item row="8" column="1" >
-          <widget class="QLineEdit" name="lineEditRC" >
-           <property name="alignment" >
+         <item row="8" column="1">
+          <widget class="QLineEdit" name="lineEditRC">
+           <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
-         <item row="9" column="0" >
-          <widget class="QCheckBox" name="checkboxMuC" >
-           <property name="text" >
+         <item row="9" column="0">
+          <widget class="QCheckBox" name="checkboxMuC">
+           <property name="text">
             <string>Reaction term [1/s]:</string>
            </property>
           </widget>
          </item>
-         <item row="9" column="1" >
-          <widget class="QLineEdit" name="lineEditMuC" >
-           <property name="alignment" >
+         <item row="9" column="1">
+          <widget class="QLineEdit" name="lineEditMuC">
+           <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
-         <item row="10" column="0" >
-          <widget class="QCheckBox" name="checkboxGammaC" >
-           <property name="text" >
+         <item row="10" column="0">
+          <widget class="QCheckBox" name="checkboxGammaC">
+           <property name="text">
             <string>Source/Sink [kg/m3s]:</string>
            </property>
           </widget>
          </item>
-         <item row="10" column="1" >
-          <widget class="QLineEdit" name="lineEditGammaC" >
-           <property name="alignment" >
+         <item row="10" column="1">
+          <widget class="QLineEdit" name="lineEditGammaC">
+           <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
-         <item row="12" column="0" >
-          <widget class="QCheckBox" name="checkboxRS" >
-           <property name="text" >
+         <item row="12" column="0">
+          <widget class="QCheckBox" name="checkboxRS">
+           <property name="text">
             <string>Retention parameter [kg/kg]:</string>
            </property>
           </widget>
          </item>
-         <item row="12" column="1" >
-          <widget class="QLineEdit" name="lineEditRS" >
-           <property name="alignment" >
+         <item row="12" column="1">
+          <widget class="QLineEdit" name="lineEditRS">
+           <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
-         <item row="6" column="0" colspan="2" >
-          <widget class="QLabel" name="label_7" >
-           <property name="palette" >
+         <item row="6" column="0" colspan="2">
+          <widget class="QLabel" name="label_7">
+           <property name="palette">
             <palette>
              <active>
-              <colorrole role="WindowText" >
-               <brush brushstyle="SolidPattern" >
-                <color alpha="255" >
+              <colorrole role="WindowText">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
                  <red>0</red>
                  <green>73</green>
                  <blue>141</blue>
@@ -336,9 +337,9 @@
               </colorrole>
              </active>
              <inactive>
-              <colorrole role="WindowText" >
-               <brush brushstyle="SolidPattern" >
-                <color alpha="255" >
+              <colorrole role="WindowText">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
                  <red>0</red>
                  <green>73</green>
                  <blue>141</blue>
@@ -347,9 +348,9 @@
               </colorrole>
              </inactive>
              <disabled>
-              <colorrole role="WindowText" >
-               <brush brushstyle="SolidPattern" >
-                <color alpha="255" >
+              <colorrole role="WindowText">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
                  <red>118</red>
                  <green>116</green>
                  <blue>108</blue>
@@ -359,25 +360,25 @@
              </disabled>
             </palette>
            </property>
-           <property name="font" >
+           <property name="font">
             <font>
              <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>Model Parameters - Eqn. 1:</string>
            </property>
           </widget>
          </item>
-         <item row="11" column="0" >
-          <widget class="QLabel" name="labelParameters2" >
-           <property name="palette" >
+         <item row="11" column="0">
+          <widget class="QLabel" name="labelParameters2">
+           <property name="palette">
             <palette>
              <active>
-              <colorrole role="WindowText" >
-               <brush brushstyle="SolidPattern" >
-                <color alpha="255" >
+              <colorrole role="WindowText">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
                  <red>0</red>
                  <green>73</green>
                  <blue>141</blue>
@@ -386,9 +387,9 @@
               </colorrole>
              </active>
              <inactive>
-              <colorrole role="WindowText" >
-               <brush brushstyle="SolidPattern" >
-                <color alpha="255" >
+              <colorrole role="WindowText">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
                  <red>0</red>
                  <green>73</green>
                  <blue>141</blue>
@@ -397,9 +398,9 @@
               </colorrole>
              </inactive>
              <disabled>
-              <colorrole role="WindowText" >
-               <brush brushstyle="SolidPattern" >
-                <color alpha="255" >
+              <colorrole role="WindowText">
+               <brush brushstyle="SolidPattern">
+                <color alpha="255">
                  <red>118</red>
                  <green>116</green>
                  <blue>108</blue>
@@ -409,55 +410,55 @@
              </disabled>
             </palette>
            </property>
-           <property name="font" >
+           <property name="font">
             <font>
              <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
-           <property name="text" >
+           <property name="text">
             <string>Model Parameters - Eqn. 2:</string>
            </property>
           </widget>
          </item>
-         <item row="13" column="0" >
-          <widget class="QCheckBox" name="checkboxMuS" >
-           <property name="text" >
+         <item row="13" column="0">
+          <widget class="QCheckBox" name="checkboxMuS">
+           <property name="text">
             <string>Reaction term [1/s]:</string>
            </property>
           </widget>
          </item>
-         <item row="13" column="1" >
-          <widget class="QLineEdit" name="lineEditMuS" >
-           <property name="alignment" >
+         <item row="13" column="1">
+          <widget class="QLineEdit" name="lineEditMuS">
+           <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
-         <item row="14" column="0" >
-          <widget class="QCheckBox" name="checkboxGammaS" >
-           <property name="text" >
+         <item row="14" column="0">
+          <widget class="QCheckBox" name="checkboxGammaS">
+           <property name="text">
             <string>Source/Sink [kg/m3s]:</string>
            </property>
           </widget>
          </item>
-         <item row="14" column="1" >
-          <widget class="QLineEdit" name="lineEditGammaS" >
-           <property name="alignment" >
+         <item row="14" column="1">
+          <widget class="QLineEdit" name="lineEditGammaS">
+           <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
-         <item row="15" column="0" >
-          <widget class="QCheckBox" name="checkboxBeta" >
-           <property name="text" >
+         <item row="15" column="0">
+          <widget class="QCheckBox" name="checkboxBeta">
+           <property name="text">
             <string>Mass exchange coefficient [1/s]:</string>
            </property>
           </widget>
          </item>
-         <item row="15" column="1" >
-          <widget class="QLineEdit" name="lineEditBeta" >
-           <property name="alignment" >
+         <item row="15" column="1">
+          <widget class="QLineEdit" name="lineEditBeta">
+           <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
@@ -465,14 +466,14 @@
         </layout>
        </item>
        <item>
-        <spacer name="verticalSpacer_4" >
-         <property name="orientation" >
+        <spacer name="verticalSpacer_4">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType" >
+         <property name="sizeType">
           <enum>QSizePolicy::Expanding</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>208</width>
            <height>13</height>
@@ -482,162 +483,162 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_2" >
-      <attribute name="title" >
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
        <string>Numerical Parameters</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout_3" >
-       <property name="verticalSpacing" >
+      <layout class="QGridLayout" name="gridLayout_3">
+       <property name="verticalSpacing">
         <number>4</number>
        </property>
-       <item row="1" column="0" >
-        <widget class="QLabel" name="label_12" >
-         <property name="text" >
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_12">
+         <property name="text">
           <string>Grid cells (equidistant):</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="1" >
-        <widget class="QSpinBox" name="spinBoxBedElements" >
-         <property name="alignment" >
+       <item row="1" column="1">
+        <widget class="QSpinBox" name="spinBoxBedElements">
+         <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
-         <property name="minimum" >
+         <property name="minimum">
           <number>100</number>
          </property>
-         <property name="maximum" >
+         <property name="maximum">
           <number>20000</number>
          </property>
-         <property name="singleStep" >
+         <property name="singleStep">
           <number>100</number>
          </property>
         </widget>
        </item>
-       <item row="3" column="0" >
-        <widget class="QLabel" name="labelEditTEnd" >
-         <property name="enabled" >
+       <item row="3" column="0">
+        <widget class="QLabel" name="labelEditTEnd">
+         <property name="enabled">
           <bool>true</bool>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>Simulation time [h]:</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="1" >
-        <widget class="QLineEdit" name="lineEditTEnd" >
-         <property name="alignment" >
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="lineEditTEnd">
+         <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
-       <item row="4" column="0" >
-        <widget class="QLabel" name="labelEditOutputDt" >
-         <property name="enabled" >
+       <item row="4" column="0">
+        <widget class="QLabel" name="labelEditOutputDt">
+         <property name="enabled">
           <bool>true</bool>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>Output time step size [h]:</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="1" >
-        <widget class="QLineEdit" name="lineEditOutputDt" >
-         <property name="alignment" >
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="lineEditOutputDt">
+         <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
-       <item row="5" column="0" >
-        <widget class="QLabel" name="labelEditOutputCount" >
-         <property name="enabled" >
+       <item row="5" column="0">
+        <widget class="QLabel" name="labelEditOutputCount">
+         <property name="enabled">
           <bool>true</bool>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>Concentration profiles stored every:</string>
          </property>
         </widget>
        </item>
-       <item row="5" column="1" >
-        <widget class="QSpinBox" name="spinBoxOutputN" >
-         <property name="alignment" >
+       <item row="5" column="1">
+        <widget class="QSpinBox" name="spinBoxOutputN">
+         <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
-         <property name="minimum" >
+         <property name="minimum">
           <number>1</number>
          </property>
-         <property name="maximum" >
+         <property name="maximum">
           <number>3600</number>
          </property>
         </widget>
        </item>
-       <item row="6" column="0" >
-        <widget class="QLabel" name="labelEditMaxDt" >
-         <property name="enabled" >
+       <item row="6" column="0">
+        <widget class="QLabel" name="labelEditMaxDt">
+         <property name="enabled">
           <bool>true</bool>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>Maximum time step [h]:</string>
          </property>
         </widget>
        </item>
-       <item row="6" column="1" >
-        <widget class="QLineEdit" name="lineEditMaxDt" >
-         <property name="alignment" >
+       <item row="6" column="1">
+        <widget class="QLineEdit" name="lineEditMaxDt">
+         <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
-       <item row="7" column="0" >
-        <widget class="QLabel" name="labelEditMinDt" >
-         <property name="enabled" >
+       <item row="7" column="0">
+        <widget class="QLabel" name="labelEditMinDt">
+         <property name="enabled">
           <bool>true</bool>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>Min. time step permitted [h]:</string>
          </property>
         </widget>
        </item>
-       <item row="7" column="1" >
-        <widget class="QLineEdit" name="lineEditMinDt" >
-         <property name="alignment" >
+       <item row="7" column="1">
+        <widget class="QLineEdit" name="lineEditMinDt">
+         <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
-       <item row="8" column="0" >
-        <widget class="QLabel" name="label_4" >
-         <property name="text" >
+       <item row="8" column="0">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
           <string>Relative tolerance:</string>
          </property>
         </widget>
        </item>
-       <item row="8" column="1" >
-        <widget class="QLineEdit" name="lineEditRelTol" >
-         <property name="alignment" >
+       <item row="8" column="1">
+        <widget class="QLineEdit" name="lineEditRelTol">
+         <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
-       <item row="9" column="0" >
-        <widget class="QLabel" name="label_5" >
-         <property name="text" >
+       <item row="9" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
           <string>Absolute tolerance:</string>
          </property>
         </widget>
        </item>
-       <item row="9" column="1" >
-        <widget class="QLineEdit" name="lineEditAbsTol" >
-         <property name="alignment" >
+       <item row="9" column="1">
+        <widget class="QLineEdit" name="lineEditAbsTol">
+         <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
-       <item row="12" column="1" >
-        <spacer name="verticalSpacer_3" >
-         <property name="orientation" >
+       <item row="12" column="1">
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeHint" stdset="0" >
+         <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
            <height>383</height>
@@ -645,28 +646,28 @@
          </property>
         </spacer>
        </item>
-       <item row="11" column="0" >
-        <widget class="QLabel" name="label_13" >
-         <property name="text" >
+       <item row="11" column="0">
+        <widget class="QLabel" name="label_13">
+         <property name="text">
           <string>Accuracy requested:</string>
          </property>
         </widget>
        </item>
-       <item row="11" column="1" >
-        <widget class="QLineEdit" name="lineEditDigits" >
-         <property name="alignment" >
+       <item row="11" column="1">
+        <widget class="QLineEdit" name="lineEditDigits">
+         <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
-       <item row="2" column="0" >
-        <widget class="QLabel" name="label_14" >
-         <property name="palette" >
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_14">
+         <property name="palette">
           <palette>
            <active>
-            <colorrole role="WindowText" >
-             <brush brushstyle="SolidPattern" >
-              <color alpha="255" >
+            <colorrole role="WindowText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
                <red>0</red>
                <green>73</green>
                <blue>141</blue>
@@ -675,9 +676,9 @@
             </colorrole>
            </active>
            <inactive>
-            <colorrole role="WindowText" >
-             <brush brushstyle="SolidPattern" >
-              <color alpha="255" >
+            <colorrole role="WindowText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
                <red>0</red>
                <green>73</green>
                <blue>141</blue>
@@ -686,9 +687,9 @@
             </colorrole>
            </inactive>
            <disabled>
-            <colorrole role="WindowText" >
-             <brush brushstyle="SolidPattern" >
-              <color alpha="255" >
+            <colorrole role="WindowText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
                <red>118</red>
                <green>116</green>
                <blue>108</blue>
@@ -698,25 +699,25 @@
            </disabled>
           </palette>
          </property>
-         <property name="font" >
+         <property name="font">
           <font>
            <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>CVODE Integrator:</string>
          </property>
         </widget>
        </item>
-       <item row="10" column="0" >
-        <widget class="QLabel" name="label_16" >
-         <property name="palette" >
+       <item row="10" column="0">
+        <widget class="QLabel" name="label_16">
+         <property name="palette">
           <palette>
            <active>
-            <colorrole role="WindowText" >
-             <brush brushstyle="SolidPattern" >
-              <color alpha="255" >
+            <colorrole role="WindowText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
                <red>0</red>
                <green>73</green>
                <blue>141</blue>
@@ -725,9 +726,9 @@
             </colorrole>
            </active>
            <inactive>
-            <colorrole role="WindowText" >
-             <brush brushstyle="SolidPattern" >
-              <color alpha="255" >
+            <colorrole role="WindowText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
                <red>0</red>
                <green>73</green>
                <blue>141</blue>
@@ -736,9 +737,9 @@
             </colorrole>
            </inactive>
            <disabled>
-            <colorrole role="WindowText" >
-             <brush brushstyle="SolidPattern" >
-              <color alpha="255" >
+            <colorrole role="WindowText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
                <red>118</red>
                <green>116</green>
                <blue>108</blue>
@@ -748,13 +749,13 @@
            </disabled>
           </palette>
          </property>
-         <property name="font" >
+         <property name="font">
           <font>
            <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
-         <property name="text" >
+         <property name="text">
           <string>LevMar Optimizer:</string>
          </property>
         </widget>
@@ -763,61 +764,61 @@
      </widget>
     </widget>
    </item>
-   <item row="0" column="1" >
-    <widget class="QGroupBox" name="groupBox_2" >
-     <property name="title" >
+   <item row="0" column="1">
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
       <string>Measured Data and Fitted Curves</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2" >
+     <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
-       <layout class="QGridLayout" name="gridLayout_2" >
-        <property name="verticalSpacing" >
+       <layout class="QGridLayout" name="gridLayout_2">
+        <property name="verticalSpacing">
          <number>4</number>
         </property>
-        <item row="0" column="0" >
-         <widget class="QLabel" name="label" >
-          <property name="text" >
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
            <string>Break-through curve data:</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="1" colspan="2" >
-         <widget class="QLineEdit" name="lineEditOutletData" />
+        <item row="0" column="1" colspan="2">
+         <widget class="QLineEdit" name="lineEditOutletData"/>
         </item>
-        <item row="0" column="3" >
-         <widget class="QPushButton" name="pushButtonBrowseOutletData" >
-          <property name="text" >
+        <item row="0" column="3">
+         <widget class="QPushButton" name="pushButtonBrowseOutletData">
+          <property name="text">
            <string>Browse...</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0" >
-         <widget class="QLabel" name="label_3" >
-          <property name="text" >
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
            <string>Inlet concentrations (optional):</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="1" colspan="2" >
-         <widget class="QLineEdit" name="lineEditInletData" />
+        <item row="1" column="1" colspan="2">
+         <widget class="QLineEdit" name="lineEditInletData"/>
         </item>
-        <item row="1" column="3" >
-         <widget class="QPushButton" name="pushButtonBrowseInletData" >
-          <property name="text" >
+        <item row="1" column="3">
+         <widget class="QPushButton" name="pushButtonBrowseInletData">
+          <property name="text">
            <string>Browse...</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="0" colspan="2" >
-         <widget class="QCheckBox" name="checkBoxInletC" >
-          <property name="text" >
+        <item row="2" column="0" colspan="2">
+         <widget class="QCheckBox" name="checkBoxInletC">
+          <property name="text">
            <string>Constant inlet concentration [kg/m3]:</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="2" >
-         <widget class="QLineEdit" name="lineEditInletC" >
-          <property name="alignment" >
+        <item row="2" column="2">
+         <widget class="QLineEdit" name="lineEditInletC">
+          <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
          </widget>
@@ -825,22 +826,22 @@
        </layout>
       </item>
       <item>
-       <widget class="QNANChartWidget" native="1" name="chart" >
-        <property name="sizePolicy" >
-         <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+       <widget class="QNANChartWidget" name="chart" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
           <verstretch>4</verstretch>
          </sizepolicy>
         </property>
-        <property name="layoutDirection" >
+        <property name="layoutDirection">
          <enum>Qt::LeftToRight</enum>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QListWidget" name="listWidgetCurveInfo" >
-        <property name="sizePolicy" >
-         <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+       <widget class="QListWidget" name="listWidgetCurveInfo">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
           <verstretch>1</verstretch>
          </sizepolicy>
@@ -853,57 +854,66 @@
      <zorder></zorder>
     </widget>
    </item>
-   <item row="1" column="0" colspan="2" >
-    <widget class="QFrame" name="frame" >
-     <property name="frameShape" >
+   <item row="1" column="0" colspan="2">
+    <widget class="QFrame" name="frame">
+     <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_2" >
-      <property name="spacing" >
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <property name="spacing">
        <number>4</number>
       </property>
-      <property name="margin" >
+      <property name="leftMargin">
+       <number>4</number>
+      </property>
+      <property name="topMargin">
+       <number>4</number>
+      </property>
+      <property name="rightMargin">
+       <number>4</number>
+      </property>
+      <property name="bottomMargin">
        <number>4</number>
       </property>
       <item>
-       <widget class="QPushButton" name="pushButtonUpdateFit" >
-        <property name="toolTip" >
+       <widget class="QPushButton" name="pushButtonUpdateFit">
+        <property name="toolTip">
          <string>Updates/recalculates the current (last) curve with the current input data.</string>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>Update Curve</string>
         </property>
-        <property name="default" >
+        <property name="default">
          <bool>true</bool>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonOptimize" >
-        <property name="toolTip" >
+       <widget class="QPushButton" name="pushButtonOptimize">
+        <property name="toolTip">
          <string>Opens the optimization dialog...</string>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>Optimize fit</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonProfiles" >
-        <property name="text" >
+       <widget class="QPushButton" name="pushButtonProfiles">
+        <property name="text">
          <string>Inspect profiles...</string>
         </property>
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_2" >
-        <property name="orientation" >
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="sizeType" >
+        <property name="sizeType">
          <enum>QSizePolicy::Fixed</enum>
         </property>
-        <property name="sizeHint" stdset="0" >
+        <property name="sizeHint" stdset="0">
          <size>
           <width>40</width>
           <height>20</height>
@@ -912,24 +922,24 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonAddFit" >
-        <property name="toolTip" >
+       <widget class="QPushButton" name="pushButtonAddFit">
+        <property name="toolTip">
          <string>Recalculates the curve with the current input parameters and adds it permenantly to the chart.</string>
         </property>
-        <property name="text" >
+        <property name="text">
          <string>Add Curve</string>
         </property>
-        <property name="autoDefault" >
+        <property name="autoDefault">
          <bool>false</bool>
         </property>
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_4" >
-        <property name="orientation" >
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="sizeHint" stdset="0" >
+        <property name="sizeHint" stdset="0">
          <size>
           <width>40</width>
           <height>20</height>
@@ -938,21 +948,21 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonConfigQt" >
-        <property name="text" >
+       <widget class="QPushButton" name="pushButtonConfigQt">
+        <property name="text">
          <string>Preferences...</string>
         </property>
        </widget>
       </item>
       <item>
-       <spacer name="horizontalSpacer_3" >
-        <property name="orientation" >
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
-        <property name="sizeType" >
+        <property name="sizeType">
          <enum>QSizePolicy::Fixed</enum>
         </property>
-        <property name="sizeHint" stdset="0" >
+        <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
           <height>20</height>
@@ -961,15 +971,15 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonAbout" >
-        <property name="text" >
+       <widget class="QPushButton" name="pushButtonAbout">
+        <property name="text">
          <string>About...</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButtonQuit" >
-        <property name="text" >
+       <widget class="QPushButton" name="pushButtonQuit">
+        <property name="text">
          <string>&amp;Quit</string>
         </property>
        </widget>
@@ -979,17 +989,17 @@
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="6" margin="11" />
+ <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
    <class>QNANChartWidget</class>
    <extends>QWidget</extends>
-   <header location="global" >qnanchartwidget.h</header>
+   <header location="global">qnanchartwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="cxtsimfit.qrc" />
+  <include location="../resources/CXTSimFit.qrc"/>
  </resources>
  <connections/>
 </ui>

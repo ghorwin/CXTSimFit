@@ -18,8 +18,6 @@ unix|mac {
 	VERSION = $${VER_MAJ}.$${VER_MIN}.$${VER_PAT}
 }
 
-LIBS += -lSuiteSparse
-
 #DEFINES += SUNDIALS_DUMP_JACOBIAN
 
 INCLUDEPATH += \
@@ -88,19 +86,6 @@ SOURCES += \
 	../../src/src/cvode/cvode_spgmr.c \
 	../../src/src/cvode/cvode_spils.c \
 	../../src/src/cvode/cvode_sptfqmr.c \
-	../../src/src/kinsol/kinsol.c \
-	../../src/src/kinsol/kinsol_band.c \
-	../../src/src/kinsol/kinsol_bbdpre.c \
-	../../src/src/kinsol/kinsol_dense.c \
-	../../src/src/kinsol/kinsol_direct.c \
-	../../src/src/kinsol/kinsol_io.c \
-	../../src/src/kinsol/kinsol_klu.c \
-	../../src/src/kinsol/kinsol_sparse.c \
-	../../src/src/kinsol/kinsol_spbcgs.c \
-	../../src/src/kinsol/kinsol_spfgmr.c \
-	../../src/src/kinsol/kinsol_spgmr.c \
-	../../src/src/kinsol/kinsol_spils.c \
-	../../src/src/kinsol/kinsol_sptfqmr.c \
 	../../src/src/nvec_ser/nvector_serial.c \
 	../../src/src/sundials/sundials_band.c \
 	../../src/src/sundials/sundials_btridiag.c \
@@ -114,10 +99,30 @@ SOURCES += \
 	../../src/src/sundials/sundials_spgmr.c \
 	../../src/src/sundials/sundials_sptfqmr.c \
 	../../src/src/sundials/sundials_timer.c \
-	../../src/src/cvode/cvode_klu.c \
 	../../src/src/sundials/sundials_sparse.c \
 	../../src/src/sundials/sundials_spfgmr.c \
 	../../src/src/cvode/cvode_sparse.c
+
+contains( OPTIONS, kinsol ) {
+	message(Enabling KINSOL in Sundials)
+SOURCES += \
+	../../src/src/kinsol/kinsol.c \
+	../../src/src/kinsol/kinsol_band.c \
+	../../src/src/kinsol/kinsol_bbdpre.c \
+	../../src/src/kinsol/kinsol_dense.c \
+	../../src/src/kinsol/kinsol_direct.c \
+	../../src/src/kinsol/kinsol_io.c \
+	../../src/src/kinsol/kinsol_klu.c \
+	../../src/src/kinsol/kinsol_sparse.c \
+	../../src/src/kinsol/kinsol_spbcgs.c \
+	../../src/src/kinsol/kinsol_spfgmr.c \
+	../../src/src/kinsol/kinsol_spgmr.c \
+	../../src/src/kinsol/kinsol_spils.c \
+	../../src/src/kinsol/kinsol_sptfqmr.c \
+	../../src/src/cvode/cvode_klu.c
+
+LIBS += -lSuiteSparse
+}
 
 contains( OPTIONS, lapack ) {
 		SOURCES +=

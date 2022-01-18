@@ -1,7 +1,7 @@
 #ifndef CXTSIMFIT_H
 #define CXTSIMFIT_H
 
-#include <QtGui/QDialog>
+#include <QDialog>
 #include <QList>
 
 #include "ui_cxtsimfit.h"
@@ -9,7 +9,7 @@
 #include "curvedata.h"
 #include "solverresults.h"
 
-#include "IBK_linearspline.h"
+#include <IBK_LinearSpline.h>
 
 class QNANDefaultChartSeries;
 class SolverInput;

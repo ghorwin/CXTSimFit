@@ -49,6 +49,34 @@ CODECFORSRC = UTF-8
 RESOURCES += \
 	../../resources/CXTSimFit.qrc 
 
+FORMS += \
+	../../src/aboutdialog.ui \
+	../../src/cxtsimfit.ui \
+	../../src/inspectprofiledialog.ui
+
+HEADERS += \
+	../../src/aboutdialog.h \
+	../../src/curvedata.h \
+	../../src/cxtsimfit.h \
+	../../src/inspectprofiledialog.h \
+	../../src/levmaroptimizer.h \
+	../../src/optimizer.h \
+	../../src/solver.h \
+	../../src/solverinput.h \
+	../../src/solverresults.h
+
+SOURCES += \
+	../../src/aboutdialog.cpp \
+	../../src/curvedata.cpp \
+	../../src/cxtsimfit.cpp \
+	../../src/inspectprofiledialog.cpp \
+	../../src/levmaroptimizer.cpp \
+	../../src/main.cpp \
+	../../src/optimizer.cpp \
+	../../src/solver.cpp \
+	../../src/solverinput.cpp \
+	../../src/solverresults.cpp
+
 
 
 

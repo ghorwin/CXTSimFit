@@ -1,7 +1,7 @@
 #ifndef solverinput_h
 #define solverinput_h
 
-#include "IBK_linearspline.h"
+#include <IBK_LinearSpline.h>
 
 /// This class encapsulates all data needed by the solver.
 /// The solver itself supports several calculation models, identified by the member variable 'model'.
@@ -21,7 +21,7 @@ public:
 	/// PLUS_EXCHANGE extends the DIFF_CONV_PARTITION by a kinetic storage term, where the storage
 	/// in the pellets is not instantaneous, but happens via a mass exchange coefficient. The mass
 	/// of all pellets inside a bed node is taken together as uniform storage medium (no gradient
-	/// within pellets). In this model, the bed itself only consists of gas and has therefore very 
+	/// within pellets). In this model, the bed itself only consists of gas and has therefore very
 	/// little storage capacity on its own.<br>
 	/// The following parameters can also be fitted:<ul>
 	/// <li>the mass transfer coefficient</li>
@@ -30,11 +30,11 @@ public:
 		DIFF_CONV_PARTITION,
 		PLUS_EXCHANGE
 	};
-	
+
 	/// Constructor, initializes all variables with some meaningful defaults.
 	SolverInput();
 
-	// Numerical input parameters 
+	// Numerical input parameters
 	int					n;			///< Number of elements for spatial discretization
 	double				tEnd;		///< Simulation end time point in s
 	double				relTol;		///< Relative tolerance permitted

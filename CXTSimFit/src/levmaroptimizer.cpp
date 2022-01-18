@@ -3,9 +3,9 @@
 #include <stdexcept>
 using namespace std;
 
-#include "levmaroptimizer.h"
+#include <levmaroptimizer.h>
 
-#include "IBK_linearspline.h"
+#include <IBK_LinearSpline.h>
 
 #include "solverinput.h"
 #include "solver.h"
@@ -16,8 +16,8 @@ void solver_fit(double *p, double *x, int m, int n, void *data) {
 	reinterpret_cast<LevMarOptimizer*>(data)->calculate(p, x);
 }
 
-LevMarOptimizer::LevMarOptimizer(const SolverInput & input, 
-								 const std::vector<double> & t, 
+LevMarOptimizer::LevMarOptimizer(const SolverInput & input,
+								 const std::vector<double> & t,
 								 const std::vector<double> & c_out)
 	: m_input(&input), m_t(t), m_c(c_out), max_iters(1000)
 {
@@ -26,12 +26,12 @@ LevMarOptimizer::LevMarOptimizer(const SolverInput & input,
 void LevMarOptimizer::optimize(std::vector<double> & parameters) {
 	m_p = parameters;
 
-	// set options 
-	// opts = [\mu, \epsilon1, \epsilon2, \epsilon3]. 
-	// Respectively the scale factor for initial \mu, 
+	// set options
+	// opts = [\mu, \epsilon1, \epsilon2, \epsilon3].
+	// Respectively the scale factor for initial \mu,
 	// stopping thresholds for ||J^T e||_inf, ||Dp||_2 and ||e||_2
-	opts[0]=LM_INIT_MU; 
-	opts[1]=1E-15; 
+	opts[0]=LM_INIT_MU;
+	opts[1]=1E-15;
 	opts[2]=m_input->digits; // how many digits accuracy?
 	opts[3]=1E-20;
 	opts[4]=LM_DIFF_DELTA; // for the finite difference Jacobian
@@ -58,7 +58,7 @@ void LevMarOptimizer::optimize(std::vector<double> & parameters) {
 		cout << "    " << info[7] << " function evaluations (solver runs)" << endl;
 		cout << "    " << info[8] << " Jacobian evaluations" << endl;
 		cout << "Reason for terminating:";
-		switch ((int)(info[6])) { 
+		switch ((int)(info[6])) {
 			case 1 : cout << "   Stopped by small gradient J^T e"; break;
 			case 2 : cout << "   Stopped by small Dp"; break;
 			case 3 : cout << "   Stopped by itmax"; break;
@@ -137,7 +137,7 @@ void LevMarOptimizer::calculate(double * p, double * c) {
 
 	try {
 		solv.run();
-		std::cout << std::endl; 
+		std::cout << std::endl;
 	}
 	catch (std::exception& ex) {
 		cout << "Error running the solver: "<< ex.what() << endl;
