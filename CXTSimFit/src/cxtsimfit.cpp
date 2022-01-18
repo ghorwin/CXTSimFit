@@ -50,8 +50,8 @@ CXTSimFit::CXTSimFit(QWidget *parent)
 	ui.comboBoxModel->addItem(tr("Equilibrium Sorption (1 BE)") );
 	ui.comboBoxModel->addItem(tr("+ mass transfer (2 BE)") );
 
-	ui.lineEditOutletData->setText("outlet.txt");
-	ui.lineEditInletData->setText("inlet.txt");
+	ui.lineEditOutletData->setText("../../data/example/filter/outlet.txt");
+	ui.lineEditInletData->setText("../../data/example/filter/inlet.txt");
 	loadDataFiles();
 
 	ui.checkBoxInletC->setChecked(true);

@@ -136,6 +136,9 @@ void Solver::init(const SolverInput & input) {
 	CVodeSetMaxStep(m_cvodeMem, input.maxDt);
 	// set CVODE minimum step size
 	CVodeSetMinStep(m_cvodeMem, input.minDt);
+	// set tolerances
+	CVodeSVtolerances(m_cvodeMem, m_relTol, m_absTolVec);
+
 
 	m_cInletData = input.cInletData; // Note: makespline() was already done!
 
