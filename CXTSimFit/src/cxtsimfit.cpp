@@ -15,11 +15,8 @@
 #include "solverresults.h"
 #include "solver.h"
 
-
 const char * PROGRAM_NAME = "CXT Sim-Fit";
-const char * PROGRAM_VERSION = "1.0";
-
-#define USE_LEVMAR
+const char * PROGRAM_VERSION = "2.0";
 
 CXTSimFit::CXTSimFit(QWidget *parent)
 	: QDialog(parent, Qt::WindowMinMaxButtonsHint | Qt::Dialog)
@@ -542,35 +539,6 @@ void CXTSimFit::on_pushButtonOptimize_clicked() {
 		return;
 	}
 
-#ifndef USE_LEVMAR
-	// TODO : open dialog where user can select optimization parameters
-
-	// create our function to be minimized (actually R2 of the curve fit)
-	Optimizer f(this, &input);
-
-	IBK::BrentMinimization minimizer(1e-6);
-	try {
-		minimizer.bracketMinimum(f,par[0], par[0]+0.0001);
-	}
-	catch (std::exception & ex) {
-		qDebug() << ex.what();
-		return;
-	}
-	qDebug() << "f(" << minimizer.ax << ") = " << minimizer.fa << "   >   "
-			 << "f(" << minimizer.bx << ") = " << minimizer.fb << "   <   "
-			 << "f(" << minimizer.cx << ") = " << minimizer.fc;
-	try {
-		par[0] = minimizer.minimize(f);
-		qDebug() << "R^2(" << minx << ") = " << minimizer.fmin << " after "
-				<< (minimizer.max_iters - minimizer.iterations) << " Iterations, ("
-				<< f.m_evals << " function evals).";
-	}
-	catch (std::exception & ex) {
-		qDebug() << ex.what();
-		return;
-	}
-#else // USE_LEVMAR
-
 	LevMarOptimizer f(input, outletCurveSpline.x(), outletCurveSpline.y());
 	f.optimizablePars = optimizableParams;
 	try {
@@ -580,8 +548,6 @@ void CXTSimFit::on_pushButtonOptimize_clicked() {
 		qDebug() << ex.what();
 		return;
 	}
-
-#endif // USE_LEVMAR
 
 	QString allVals;
 	for (size_t i=0; i<optimizableParams.size(); ++i) {
