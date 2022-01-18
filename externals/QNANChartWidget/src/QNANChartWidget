@@ -1,0 +1,7 @@
+#include "qnanchartwidget.h"
+#include "qnanchartaxis.h"
+#include "qnanabstractchartseries.h"
+#include "qnandefaultchartseries.h"
+#include "qnanserieseditdialog.h"
+#include "qnancharteditdialog.h"
+#include "qnanprintchartdialog.h"
