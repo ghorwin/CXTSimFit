@@ -48,7 +48,8 @@ So, when you read a paper with parameters determined through inverse modeling an
 
 ## Authors
 
-The tool was a small side project that I (Andreas Nicolai) developed while writing my PhD at [Syracuse University](https://www.syracuse.edu) in the [BEESL group](https://beesl.syr.edu) together with my colleague Jing Jing Pei. 
+The tool was a small side project that I (Andreas Nicolai) developed together with my colleague Jing Jing Pei while working my PhD at [Syracuse University](https://www.syracuse.edu) in the [BEESL group](https://beesl.syr.edu).
+
 (Btw, sorry, Jing Jing, that I made you listen to all my boring explanations on numerics and C++ programming :-)
 
 ## Downloads
