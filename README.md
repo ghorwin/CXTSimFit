@@ -1,5 +1,14 @@
 # CXTSimFit
-A tracer / break-through analysis and diffusion and convenction coefficient fit tool - simulation based, as opposed to the original CXTFIT
+
+_CXTSimFit_ is a small tool to determine model parameters through inverse modeling of Tracer experiments (or filter tests). It fits the parameters of a typical diffusion and convection equation (with sorption and source term, and optional dual porosity) to measured inlet/outlet data. As opposed to the original CXTFit (see reference below) it can handle much more complex equations and handle non-constant inlet conditions.
+
+Paper of the original CXTFIT:
+
+_The CXTFIT Code for Estimating Transport Parameters from Laboratory or Field Tracer Experiments_, Research Report No. 137, April 1999, N. Toride, F. J. Leij, and M. Th. van Genuchten
+
+*Note:* nor the CXTSimFit code not the model formulation or anything is in this repository is related or uses material from the original code/model. The purpose of the software is, however, very similar, hence the naming.
+
+## What it does
 
 This is a re-design of the original CXTFit software using a modern PDE solver to support measured, variable concentration pulses.
 
