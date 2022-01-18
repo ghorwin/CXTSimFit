@@ -131,7 +131,7 @@ void Solver::init(const SolverInput & input) {
 	// set CVODE maximum steps before reaching tout
 	CVodeSetMaxNumSteps(m_cvodeMem, 100000);
 	// set CVODE initial step size
-	CVodeSetInitStep(m_cvodeMem, 1e-6/m_n);
+	CVodeSetInitStep(m_cvodeMem, 1e-3/m_n);
 	// set CVODE maximum step size
 	CVodeSetMaxStep(m_cvodeMem, input.maxDt);
 	// set CVODE minimum step size

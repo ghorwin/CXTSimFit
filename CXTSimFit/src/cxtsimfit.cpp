@@ -75,10 +75,11 @@ CXTSimFit::CXTSimFit(QWidget *parent)
 	ui.lineEditMuS->setText( "0" );
 	ui.lineEditGammaS->setText( "0" );
 
+	ui.spinBoxBedElements->setValue(1000);
 	ui.lineEditTEnd->setText("24");
-	ui.lineEditOutputDt->setText("1800");
-	ui.spinBoxOutputN->setValue(2);
-	ui.lineEditMaxDt->setText("600");
+	ui.lineEditOutputDt->setText("600");
+	ui.spinBoxOutputN->setValue(6);
+	ui.lineEditMaxDt->setText("300");
 	ui.lineEditMinDt->setText("1e-12");
 	ui.lineEditRelTol->setText("1e-5");
 	ui.lineEditAbsTol->setText("1e-10");
