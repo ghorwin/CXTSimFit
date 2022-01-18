@@ -88,10 +88,8 @@ endif (MSVC)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 find_package(Qt5Widgets REQUIRED)
-find_package(Qt5Xml REQUIRED)
 find_package(Qt5Svg REQUIRED)
 find_package(Qt5PrintSupport REQUIRED)
-find_package(Qt5Network REQUIRED)
 find_package(Qt5Concurrent REQUIRED)
 
 message("*** Building with Qt5, Version ${Qt5Widgets_VERSION} ***")
@@ -149,7 +147,7 @@ set(KLU_INCLUDE_DIR ../../../externals/SuiteSparse/src/include)
 # add subdirectories for all builds
 add_subdirectory( ../../externals/sundials/src sundials)
 add_subdirectory( ../../externals/IBK/projects/cmake_local IBK )
-add_subdirectory( ../../externals/IBK/projects/cmake_local IBK )
+add_subdirectory( ../../externals/levmar/projects/cmake_local levmar )
 
 # -------------------------------------------------------------
 # applications and FMI Interface
