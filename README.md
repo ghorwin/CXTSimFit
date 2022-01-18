@@ -51,6 +51,17 @@ So, when you read a paper with parameters determined through inverse modeling an
 The tool was a small side project that I (Andreas Nicolai) developed while writing my PhD at [Syracuse University](https://www.syracuse.edu) in the [BEESL group](https://beesl.syr.edu) together with my colleague Jing Jing Pei. 
 (Btw, sorry, Jing Jing, that I made you listen to all my boring explanations on numerics and C++ programming :-)
 
+## Downloads
+
+Eventually I might add releases. Until then just grab the source code, and use `qmake` to build:
+
+```bash
+cd build/Qt
+qmake
+make
+```
+
+and similar on Windows from the Visual Studio command line prompt.
 
 # Old Screenshots
 
