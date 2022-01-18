@@ -1,6 +1,6 @@
 # CXTSimFit
 
-_CXTSimFit_ is a small tool to determine model parameters through _Inverse Modeling_ of Tracer experiments or break-through filter tests. It fits the parameters of a typical diffusion and convection equation to measured inlet/outlet data (optionally with sorption and source term, and/or dual porosity). As opposed to the original CXTFit (see reference below) it can handle much more complex equations and handle non-constant inlet conditions.
+_CXTSimFit_ is a small tool to determine model parameters through _Inverse Modelling_ of Tracer experiments or break-through filter tests. It fits the parameters of a typical diffusion and convection equation to measured inlet/outlet data (optionally with sorption and source term, and/or dual porosity). As opposed to the original CXTFit (see reference below) it can handle much more complex equations and handle non-constant inlet conditions.
 
 Paper of the original CXTFIT:
 
@@ -36,15 +36,15 @@ For each calculated and added curve, you can inspect the progression of the conv
 
 ## Curve Fitting
 
-You can now select one or more model parameters (check the check boxes) to determine via _inverse modeling_. This procedure involves running a simulation with some set of parameters, evaluating the difference between calculated and provided break-through curve and then using the [Levenberg-Marquardt](https://en.wikipedia.org/wiki/Levenberg–Marquardt_algorithm) to optimize the parameters.
+You can now select one or more model parameters (check the check boxes) to determine via _Inverse Modelling_. This procedure involves running a simulation with some set of parameters, evaluating the difference between calculated and provided break-through curve and then using the [Levenberg-Marquardt](https://en.wikipedia.org/wiki/Levenberg–Marquardt_algorithm) to optimize the parameters.
 
 As with all non-linear optimization algorithms, a good set of starting values will help. Also, adjusting first a few parameters and adding the others later, might give better results.
 
-### Checking/evaluating typical Inverse Modeling errors
+### Checking/evaluating typical Inverse Modelling errors
 
-The software can be used very well in teaching problems appearing with _Inverse Modeling_. For example, a frequent mistake in papers related to _inverse modeling_ is the mixup of numerical effects on results with physical parameters, most notably the diffusion coefficient. Try to fit a perfect analytical break-through curve with a coarse and fine grid - the algorithm will give you near perfect fit in both cases, yet with _different_ diffusion coefficients. 
+The software can be used very well in teaching problems appearing with _Inverse Modelling_. For example, a frequent mistake in papers related to _Inverse Modelling_ is the mixup of _numerical effects_ on results with _physical parameters_, most notably the diffusion coefficient. Try to fit a perfect analytical break-through curve with a coarse and fine grid - the algorithm will give you near perfect fit in both cases, yet with _different_ diffusion coefficients. 
 
-So, when you read a paper with parameters determined through inverse modeling and numerical simulation, and the author _does not_ discuss impact of numerical parameters, then the presented results are likely garbarge or unreliable at best.
+So, when you read a paper with parameters determined through inverse modelling and numerical simulation, and the author _does not_ discuss impact of numerical parameters, then the presented results are likely garbarge or unreliable at best.
 
 ## Authors
 
@@ -66,7 +66,7 @@ and similar on Windows from the Visual Studio command line prompt.
 
 # Old Screenshots
 
-Mind, this software was first published in 2009/2010, hence the screenshots show OS versions that are now long out of date. However, I still like the window manager decorations and color schemes from back then :-)
+Mind, this software was first published in 2009/2010, hence the old screenshots below show OS versions that are now long out of date. However, I still like the window manager decorations and color schemes from back then :-)
 
 ### Kubuntu 8.10
 ![CXTSimFit on Kubuntu 8.10](doc/snapshot_kubuntu8.10.png)
