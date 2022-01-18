@@ -6,13 +6,12 @@ using namespace std;
 #include "aboutdialog.h"
 #include "inspectprofiledialog.h"
 
-#include "qnandefaultchartseries.h"
-#include "qnanchartaxis.h"
+#include <qnandefaultchartseries.h>
+#include <qnanchartaxis.h>
 
 #include "solverresults.h"
 #include "solver.h"
 
-#include "optimizer.h"
 #include "levmaroptimizer.h"
 
 const char * PROGRAM_NAME = "CXT Sim-Fit";
@@ -20,8 +19,8 @@ const char * PROGRAM_VERSION = "1.0";
 
 #define USE_LEVMAR
 
-CXTSimFit::CXTSimFit(QWidget *parent, Qt::WFlags flags)
-	: QDialog(parent, flags | Qt::WindowMinMaxButtonsHint | Qt::Dialog)
+CXTSimFit::CXTSimFit(QWidget *parent)
+	: QDialog(parent, Qt::WindowMinMaxButtonsHint | Qt::Dialog)
 {
 	ui.setupUi(this);
 
@@ -55,7 +54,7 @@ CXTSimFit::CXTSimFit(QWidget *parent, Qt::WFlags flags)
 	// setup the combo box
 	ui.comboBoxModel->addItem(tr("Equilibrium Sorption (1 BE)") );
 	ui.comboBoxModel->addItem(tr("+ mass transfer (2 BE)") );
-	
+
 	ui.lineEditOutletData->setText("outlet.txt");
 	ui.lineEditInletData->setText("inlet.txt");
 	loadDataFiles();
@@ -81,7 +80,7 @@ CXTSimFit::CXTSimFit(QWidget *parent, Qt::WFlags flags)
 	ui.lineEditMuS->setText( "0" );
 	ui.lineEditGammaS->setText( "0" );
 
-	ui.lineEditTEnd->setText("24"); 
+	ui.lineEditTEnd->setText("24");
 	ui.lineEditOutputDt->setText("1800");
 	ui.spinBoxOutputN->setValue(2);
 	ui.lineEditMaxDt->setText("600");
@@ -388,7 +387,7 @@ void CXTSimFit::calculatePartitionCoefficient() {
 	//input.calculatePartitionCoefficient();
 /*	double t = 0;
 		double max_t = std::min(inletCurveSpline.m_x.back(), outletCurveSpline.m_x.back());
-		// integrate the difference 
+		// integrate the difference
 		int N = 10000;
 		double dt = max_t/N;
 		double cA = 0;
@@ -562,12 +561,12 @@ void CXTSimFit::on_pushButtonOptimize_clicked() {
 		return;
 	}
 	qDebug() << "f(" << minimizer.ax << ") = " << minimizer.fa << "   >   "
-		     << "f(" << minimizer.bx << ") = " << minimizer.fb << "   <   "
-		     << "f(" << minimizer.cx << ") = " << minimizer.fc;
+			 << "f(" << minimizer.bx << ") = " << minimizer.fb << "   <   "
+			 << "f(" << minimizer.cx << ") = " << minimizer.fc;
 	try {
 		par[0] = minimizer.minimize(f);
-		qDebug() << "R^2(" << minx << ") = " << minimizer.fmin << " after " 
-				<< (minimizer.max_iters - minimizer.iterations) << " Iterations, (" 
+		qDebug() << "R^2(" << minx << ") = " << minimizer.fmin << " after "
+				<< (minimizer.max_iters - minimizer.iterations) << " Iterations, ("
 				<< f.m_evals << " function evals).";
 	}
 	catch (std::exception & ex) {

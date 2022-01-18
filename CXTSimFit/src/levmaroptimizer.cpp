@@ -6,6 +6,7 @@ using namespace std;
 #include <levmaroptimizer.h>
 
 #include <IBK_LinearSpline.h>
+#include <IBK_Exception.h>
 
 #include "solverinput.h"
 #include "solver.h"
@@ -19,11 +20,13 @@ void solver_fit(double *p, double *x, int m, int n, void *data) {
 LevMarOptimizer::LevMarOptimizer(const SolverInput & input,
 								 const std::vector<double> & t,
 								 const std::vector<double> & c_out)
-	: m_input(&input), m_t(t), m_c(c_out), max_iters(1000)
+	: m_input(&input), m_c(c_out), max_iters(1000), m_t(t)
 {
 }
 
+
 void LevMarOptimizer::optimize(std::vector<double> & parameters) {
+	FUNCID(LevMarOptimizer::optimize);
 	m_p = parameters;
 
 	// set options
@@ -75,6 +78,8 @@ void LevMarOptimizer::optimize(std::vector<double> & parameters) {
 }
 
 void LevMarOptimizer::calculate(double * p, double * c) {
+	FUNCID(LevMarOptimizer::calculate);
+
 	SolverInput input = *m_input;
 
 	double penalty = 0;
@@ -141,14 +146,17 @@ void LevMarOptimizer::calculate(double * p, double * c) {
 	}
 	catch (std::exception& ex) {
 		cout << "Error running the solver: "<< ex.what() << endl;
-		throw std::runtime_error("Can't continiue minimization!");
+		throw std::runtime_error("Can't continue minimization!");
 	}
 
 	// compute concentrations at measurment locations
 	IBK::LinearSpline spl;
-	spl.m_x = solv.m_outletT;
-	spl.m_y = solv.m_outletC;
-	spl.makeSpline();
+	try {
+		spl.setValues(solv.m_outletT, solv.m_outletC);
+	} catch (IBK::Exception & ex) {
+		throw IBK::Exception(ex, "Error creating linear spline.", FUNC_ID);
+
+	}
 
 	// we need to interpolate the results at the measurement locations
 	for (unsigned int i=0; i<m_t.size(); ++i) {

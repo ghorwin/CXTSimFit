@@ -32,7 +32,7 @@ public:
 	void run();
 
 	/// System function called by the solver.
-	/// This function is used to calculate the divergences (right-hand-sides) 
+	/// This function is used to calculate the divergences (right-hand-sides)
 	/// of the differential equations. Implement all the physics in this equation.
 	int calculateDivergences(double t, N_Vector y, N_Vector ydot);
 
@@ -52,7 +52,7 @@ private:
 
 	bool					m_initialized;	///< This variable is set to true, once the solver is successfully initialized
 
-	SolverInput				m_input;	///< Containts all input data for the solver.
+	SolverInput				m_input;		///< Containts all input data for the solver.
 
 	double					m_t;			///< Current time point in s.
 	double					m_tEnd;			///< Last time point of simulation in s.
@@ -60,22 +60,22 @@ private:
 	unsigned int			m_outputCounter;	///< Number of break-through outputs done in s.
 	IBK::LinearSpline		m_cInletData;		///< Inlet concentration in kg/m3
 
-	unsigned int			m_n;		///< Number of elements.
-	unsigned int			m_nVars;	///< Number of variables per element.
+	unsigned int			m_n;			///< Number of elements.
+	unsigned int			m_nVars;		///< Number of variables per element.
 
-	std::vector<double>		m_cREV;		///< Vector with total mass densities per element in kg/m3
-	std::vector<double>		m_cc;		///< Vector with gas/mobile phase mass densities in kg/m3
-	std::vector<double>		m_sREV;		///< Vector with total mass densities per element in kg/m3
-	std::vector<double>		m_sc;		///< Vector with gas/mobile phase mass densities in kg/m3
+	std::vector<double>		m_cREV;			///< Vector with total mass densities per element in kg/m3
+	std::vector<double>		m_cc;			///< Vector with gas/mobile phase mass densities in kg/m3
+	std::vector<double>		m_sREV;			///< Vector with total mass densities per element in kg/m3
+	std::vector<double>		m_sc;			///< Vector with gas/mobile phase mass densities in kg/m3
 
-	std::vector<double>		m_jdiff;	///< Vector with axial diffusive fluxes in kg/s (n+1)
-	std::vector<double>		m_jconv;	///< Vector with convective fluxes in kg/s (n+1)
+	std::vector<double>		m_jdiff;		///< Vector with axial diffusive fluxes in kg/s (n+1)
+	std::vector<double>		m_jconv;		///< Vector with convective fluxes in kg/s (n+1)
 
-	std::vector<double>		m_sbeta;	///< Vector with exchange fluxes in kg/s (n) (negative for eq 1, pos. for eq 2)
-	std::vector<double>		m_smu_c;	///< Vector with chemical reaction fluxes in kg/s (n)
-	std::vector<double>		m_sgamma_c;	///< Vector with sources/sinks in kg/s (n)
-	std::vector<double>		m_smu_s;	///< Vector with chemical reaction fluxes in kg/s (n)
-	std::vector<double>		m_sgamma_s;	///< Vector with sources/sinks in kg/s (n)
+	std::vector<double>		m_sbeta;		///< Vector with exchange fluxes in kg/s (n) (negative for eq 1, pos. for eq 2)
+	std::vector<double>		m_smu_c;		///< Vector with chemical reaction fluxes in kg/s (n)
+	std::vector<double>		m_sgamma_c;		///< Vector with sources/sinks in kg/s (n)
+	std::vector<double>		m_smu_s;		///< Vector with chemical reaction fluxes in kg/s (n)
+	std::vector<double>		m_sgamma_s;		///< Vector with sources/sinks in kg/s (n)
 
 	std::vector<std::vector<double> >	m_ccProfile;	///< Gas/mobile phase concentration kg/m3
 	std::vector<std::vector<double> >	m_scProfile;	///< Gas/mobile phase concentration kg/m3

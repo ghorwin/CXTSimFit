@@ -9,25 +9,23 @@ void SolverResults::clear() {
 }
 
 double SolverResults::calculateRSquare(const IBK::LinearSpline & other) {
-	try {
-		data.makeSpline();
-	}
-	catch (...) {
+	std::string errmsg;
+	if (!data.makeSpline(errmsg))
 		return R2 = -1;
-	}
+
 	// check if outlet data is available
 	if (!other.valid() || !data.valid()) {
 		return R2 = -1;
 	}
 
 	// get max value
-	double max_x = other.m_x.back();
-	if (data.m_x.back() < max_x)
-		max_x = data.m_x.back();
+	double max_x = other.x().back();
+	if (data.x().back() < max_x)
+		max_x = data.x().back();
 
 	// get mean value of y
-	double mean_y = std::accumulate(other.m_y.begin(), other.m_y.end(), 0.0)/other.m_y.size();
-	
+	double mean_y = std::accumulate(other.y().begin(), other.y().end(), 0.0)/other.y().size();
+
 	double dx = 0.1; // TODO : adjust fixed value
 	double x = 0;
 	int intervals = 0;

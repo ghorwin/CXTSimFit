@@ -20,7 +20,7 @@ unix {
 LIBS += -L../../../lib$${DIR_PREFIX} \
 	-lIBK \
 	-llevmar \
-	-lsundials 
+	-lsundials
 
 win32 {
 	LIBS += -luser32
@@ -30,6 +30,7 @@ INCLUDEPATH = \
 	../../src \
 	../../../externals/IBK/src \
 	../../../externals/levmar/src \
+	../../../externals/QNANChartWidget/src \
 	../../../externals/sundials/src/include
 
 DEPENDPATH = $${INCLUDEPATH}
@@ -47,7 +48,7 @@ TRANSLATIONS += ../../resources/translations/CXTSimFit_de.ts
 CODECFORSRC = UTF-8
 
 RESOURCES += \
-	../../resources/CXTSimFit.qrc 
+	../../resources/CXTSimFit.qrc
 
 FORMS += \
 	../../src/aboutdialog.ui \
@@ -60,7 +61,7 @@ HEADERS += \
 	../../src/cxtsimfit.h \
 	../../src/inspectprofiledialog.h \
 	../../src/levmaroptimizer.h \
-	../../src/optimizer.h \
+#	../../src/optimizer.h \
 	../../src/solver.h \
 	../../src/solverinput.h \
 	../../src/solverresults.h
@@ -72,7 +73,7 @@ SOURCES += \
 	../../src/inspectprofiledialog.cpp \
 	../../src/levmaroptimizer.cpp \
 	../../src/main.cpp \
-	../../src/optimizer.cpp \
+#	../../src/optimizer.cpp \
 	../../src/solver.cpp \
 	../../src/solverinput.cpp \
 	../../src/solverresults.cpp

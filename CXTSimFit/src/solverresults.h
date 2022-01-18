@@ -2,9 +2,10 @@
 #define solverresults_h
 
 #include <vector>
-#include "solverinput.h"
 
-#include "IBK_linearspline.h"
+#include <IBK_LinearSpline.h>
+
+#include "solverinput.h"
 
 /// Contains all results from a solver run.
 class SolverResults {

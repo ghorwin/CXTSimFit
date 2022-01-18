@@ -17,7 +17,7 @@ class SolverInput;
 class CXTSimFit : public QDialog {
 	Q_OBJECT
 public:
-	CXTSimFit(QWidget *parent = 0, Qt::WFlags flags = 0);
+	CXTSimFit(QWidget *parent = nullptr);
 	~CXTSimFit();
 
 	IBK::LinearSpline		outletCurveSpline;

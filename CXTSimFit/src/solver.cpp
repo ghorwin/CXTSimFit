@@ -9,50 +9,55 @@
 #include <cmath>
 
 #include <cvode/cvode_band.h>
-#include <cvode/cvode_diag.h>
+
+#include <IBK_Exception.h>
 
 #include "solver.h"
-using namespace std;
 
-// Wrapper function called from CVode solver which calls the 
+// Wrapper function called from CVode solver which calls the
 // actual solver routine in the solver class.
 inline int f_solver(realtype t, N_Vector y, N_Vector ydot, void *f_data) {
 	// relay call to solver member function
 	return static_cast<Solver*>(f_data)->calculateDivergences(t, y, ydot);
 }
 
+
 Solver::Solver() {
 	// initialize pointers to zero
-//	m_outputFile = NULL;
-	m_yStorage = NULL;
-	m_absTolVec = NULL;
-	m_cvodeMem = NULL;
-	m_cvodeMonitors = NULL;
+//	m_outputFile = nullptr;
+	m_yStorage = nullptr;
+	m_absTolVec = nullptr;
+	m_cvodeMem = nullptr;
+	m_cvodeMonitors = nullptr;
 }
+
 
 Solver::~Solver() {
 	clear();
 }
 
+
 void Solver::clear() {
 	// free any allocated memory
-	if (m_cvodeMem!=NULL) {
+	if (m_cvodeMem!=nullptr) {
 		CVodeFree(&m_cvodeMem);
-		m_cvodeMem = NULL;
+		m_cvodeMem = nullptr;
 	}
-	if (m_yStorage!=NULL) {
+	if (m_yStorage!=nullptr) {
 		N_VDestroy_Serial(m_yStorage);
-		m_yStorage = NULL;
+		m_yStorage = nullptr;
 	}
-	if (m_absTolVec!=NULL) { 
+	if (m_absTolVec!=nullptr) {
 		N_VDestroy_Serial(m_absTolVec);
-		m_absTolVec = NULL;
+		m_absTolVec = nullptr;
 	}
-	delete m_cvodeMonitors; 
-	m_cvodeMonitors = NULL;
+	delete m_cvodeMonitors;
+	m_cvodeMonitors = nullptr;
 }
 
+
 void Solver::init(const SolverInput & input) {
+	FUNCID(Solver::init);
 	m_input = input;
 	m_initialized = false;
 	clear();
@@ -63,21 +68,18 @@ void Solver::init(const SolverInput & input) {
 
 	// set number of elements and variables per element
 	m_n = m_input.n;
-	
+
 	// depending on problem to solve, set number of variables and determine the bandwidth
-	int bandwidth;
+	unsigned int bandwidth;
 	// bandwidth is the maximum difference of neighboring element numbers * 2 + 1
 	switch (m_input.model) {
-		case SolverInput::DIFF_CONV_PARTITION : 
+		case SolverInput::DIFF_CONV_PARTITION :
 			m_nVars = 1; // total VOC mass density per bed node
 			break;
 
-		case SolverInput::PLUS_EXCHANGE : 
+		case SolverInput::PLUS_EXCHANGE :
 			m_nVars = 2; // gaseous VOC mass density and adsorbed VOC mass density per bed node
 			break;
-
-		default : 
-			throw runtime_error("Model not yet implemented!");
 	}
 
 	bandwidth = (m_nVars+1)*2 - 1;
@@ -86,7 +88,7 @@ void Solver::init(const SolverInput & input) {
 	m_relTol = input.relTol;
 	m_absTolVec = N_VNew_Serial(m_nVars*m_n);
 	if (!m_absTolVec)
-		throw runtime_error("Absolute tolerances vector allocation error!");
+		throw IBK::Exception("Absolute tolerances vector allocation error!", FUNC_ID);
 
 	// now loop over all elements and set absolute tolerances
 	for (unsigned int i=0; i<m_n*m_nVars; ++i) {
@@ -96,7 +98,7 @@ void Solver::init(const SolverInput & input) {
 	// create solution vector and set initial conditions
 	m_yStorage = N_VNew_Serial(m_n*m_nVars);
 	if (!m_yStorage)
-		throw runtime_error("Solution vector allocation error!");
+		throw IBK::Exception("Solution vector allocation error!", FUNC_ID);
 
 	// for now, the initial condition is completely empty
 	for (unsigned int i=0; i<m_n*m_nVars; ++i) {
@@ -105,41 +107,25 @@ void Solver::init(const SolverInput & input) {
 
 	// init CVODE solver
 	m_cvodeMem = CVodeCreate(CV_BDF, CV_NEWTON);
-	// init internal CVODE memory
-	int result = CVodeMalloc(m_cvodeMem, 
-							 f_solver, 
-							 m_t, 
-							 m_yStorage, 
-							 CV_SV,
-							 m_relTol,
-							 m_absTolVec);
+	// Initialize cvode memory with equation specific absolute tolerances
+	int result = CVodeInit(m_cvodeMem,
+						   f_solver,
+						   m_t,
+						   m_yStorage);
 	if (result != CV_SUCCESS)
-		throw runtime_error("CVodeMalloc init error!");
+		throw IBK::Exception("CVodeInit init error.", FUNC_ID);
 
-	switch (m_input.model) {
-		case SolverInput::DIFF_CONV_PARTITION : 
-			result = CVDiag(m_cvodeMem);
-			switch (result) {
-				case CVDIAG_SUCCESS		: break;
-				case CVDIAG_MEM_FAIL	: throw runtime_error("CVDiag memory initialization error (problem too large?)");
-				case CVDIAG_ILL_INPUT	: throw runtime_error("CVDiag init error (wrong input?)");
-				default					: throw runtime_error("CVDiag init error");
-			}
-			break;
-
-		case SolverInput::PLUS_EXCHANGE : 
-			result = CVBand(m_cvodeMem, m_n*m_nVars, bandwidth, bandwidth);
-			switch (result) {
-				case CVBAND_SUCCESS		: break;
-				case CVBAND_MEM_FAIL	: throw runtime_error("CVBand memory initialization error (problem too large?)");
-				case CVBAND_ILL_INPUT	: throw runtime_error("CVBand init error (wrong input?)");
-				default					: throw runtime_error("CVBand init error");
-			}
-			break;
+	// setup matrix, tridiagonal for diffusion/convection model, larger bandwidth for model with dual porosity
+	result = CVBand(m_cvodeMem, m_n*m_nVars, bandwidth, bandwidth);
+	switch (result) {
+		case CVDLS_SUCCESS		: break;
+		case CVDLS_MEM_FAIL		: throw IBK::Exception("CVBand memory initialization error (problem too large?)", FUNC_ID);
+		case CVDLS_ILL_INPUT	: throw IBK::Exception("CVBand init error (wrong input?)", FUNC_ID);
+		default					: throw IBK::Exception("CVBand init error", FUNC_ID);
 	}
-	
+
 	// set CVODE parameters
-	CVodeSetFdata(m_cvodeMem, this);
+	CVodeSetUserData(m_cvodeMem, (void*)this);
 	// set CVODE Max-order
 	CVodeSetMaxOrd(m_cvodeMem, 5);
 	// set CVODE maximum steps before reaching tout
@@ -151,12 +137,7 @@ void Solver::init(const SolverInput & input) {
 	// set CVODE minimum step size
 	CVodeSetMinStep(m_cvodeMem, input.minDt);
 
-	m_cInletData = input.cInletData;
-	if (!m_cInletData.empty()) {
-		string errmsg;
-		bool result = m_cInletData.makeSpline(&errmsg);
-		if (!result)	throw runtime_error(errmsg);
-	}
+	m_cInletData = input.cInletData; // Note: makespline() was already done!
 
 	// initialization of working variables
 	m_cREV.resize(m_n);
@@ -180,7 +161,9 @@ void Solver::init(const SolverInput & input) {
 	m_initialized = true;
 }
 
+
 void Solver::run() {
+	FUNCID(Solver::run);
 	if (!m_initialized) return;
 	// calculate everything for first step so that we can write the inital output
 	storeOutput();
@@ -192,10 +175,10 @@ void Solver::run() {
 		// run CVODE
 		int result = CVode(m_cvodeMem, t_out, m_yStorage, &m_t, CV_NORMAL);
 		if (result < 0)
-			throw runtime_error("Error while integrating solution.");
+			throw IBK::Exception("Error while integrating solution.", FUNC_ID);
 		int section = static_cast<int>(m_t/m_tEnd*10);
 		if (section > progress) {
-			cout << ".";
+			std::cout << ".";
 			progress = section;
 		}
 		storeOutput();
@@ -208,12 +191,12 @@ void Solver::run() {
 int Solver::calculateDivergences(double t, N_Vector y_vec, N_Vector ydot_vec) {
 	// readability improvements
 	double * y = NV_DATA_S(y_vec);
-	double * ydot = 0;
-	if (ydot_vec != 0)
+	double * ydot = nullptr;
+	if (ydot_vec != nullptr)
 		ydot = NV_DATA_S(ydot_vec);
 	double	A		= m_input.A;
 	double	L		= m_input.L;
-	double	p		= m_input.p;
+//	double	p		= m_input.p;
 	double	v		= m_input.v;
 	double	D		= m_input.D;
 	double	Rc		= m_input.Rc;
@@ -234,7 +217,7 @@ int Solver::calculateDivergences(double t, N_Vector y_vec, N_Vector ydot_vec) {
 
 	// first extract the primary and secondary state variables from the solution vector
 	switch (m_input.model) {
-		case SolverInput::DIFF_CONV_PARTITION : 
+		case SolverInput::DIFF_CONV_PARTITION :
 			{
 				// equilibrium sorption, y contains total mass densities in kg/m3,
 				for (unsigned int i=0; i<m_n; ++i) {
@@ -246,7 +229,7 @@ int Solver::calculateDivergences(double t, N_Vector y_vec, N_Vector ydot_vec) {
 			}
 			break;
 
-		case SolverInput::PLUS_EXCHANGE : 
+		case SolverInput::PLUS_EXCHANGE :
 			{
 				// separate flow domains
 				// y1 contains total gas/mobile mass densities with respect to REV
@@ -263,8 +246,6 @@ int Solver::calculateDivergences(double t, N_Vector y_vec, N_Vector ydot_vec) {
 				}
 			}
 			break;
-
-		default : return -1;
 	} // switch
 
 	// ensure all mass densities are non-negative (by clipping)
@@ -295,7 +276,7 @@ int Solver::calculateDivergences(double t, N_Vector y_vec, N_Vector ydot_vec) {
 	//    m_n               - last interface downstream (outlet)
 
 	// calculate bed fluxes
-	int i_lastBedNode = m_n-1;
+	unsigned int i_lastBedNode = m_n-1;
 
 	// ** Boundary conditions **
 
@@ -326,9 +307,9 @@ int Solver::calculateDivergences(double t, N_Vector y_vec, N_Vector ydot_vec) {
 	}
 
 	// store divergences back in ydot vector, if we have one given
-	if (ydot != NULL) {
+	if (ydot != nullptr) {
 		switch (m_input.model) {
-			case SolverInput::DIFF_CONV_PARTITION : 
+			case SolverInput::DIFF_CONV_PARTITION :
 				{
 					for (unsigned int i=0; i<m_n; ++i) {
 						// calculate divergences
@@ -339,7 +320,7 @@ int Solver::calculateDivergences(double t, N_Vector y_vec, N_Vector ydot_vec) {
 				}
 				break;
 
-			case SolverInput::PLUS_EXCHANGE : 
+			case SolverInput::PLUS_EXCHANGE :
 				{
 					for (unsigned int i=0; i<m_n; ++i) {
 						// calculate divergence for mobile phase
@@ -364,13 +345,14 @@ int Solver::calculateDivergences(double t, N_Vector y_vec, N_Vector ydot_vec) {
 	return 0;
 }
 
+
 void Solver::storeOutput() {
 	// don't add, if we just added a profile for this point
-	if (!m_outletT.empty() && fabs(m_outletT.back() - m_t/3600) < 1e-10) 
+	if (!m_outletT.empty() && fabs(m_outletT.back() - m_t/3600) < 1e-10)
 		return;
 	// re-calculate the temporary variables again for the
 	// current output values in m_yStorage
-	calculateDivergences(0, m_yStorage, NULL);
+	calculateDivergences(0, m_yStorage, nullptr);
 	// store the outlet concentration along with the current time point in a vector
 	m_outletT.push_back(m_t/3600.0);
 	m_outletC.push_back(m_cc[m_n-1]);

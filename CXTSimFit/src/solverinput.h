@@ -35,14 +35,14 @@ public:
 	SolverInput();
 
 	// Numerical input parameters
-	int					n;			///< Number of elements for spatial discretization
+	unsigned int		n;			///< Number of elements for spatial discretization
 	double				tEnd;		///< Simulation end time point in s
 	double				relTol;		///< Relative tolerance permitted
 	double				absTol;		///< Absolute tolerance requested (for decaying processes)
 	double				minDt;		///< Minimum time step in s
 	double				maxDt;		///< Maximum time step in s
 	double				outputDt;	///< Output time steps for break-through in s
-	int					outputN;	///< Every nth break-through output a field output is written.
+	unsigned int		outputN;	///< Every nth break-through output a field output is written.
 	double				digits;		///< Accuracy required for the LevMar algorithm.
 
 	// Physical parameters
